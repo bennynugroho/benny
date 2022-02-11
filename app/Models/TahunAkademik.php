@@ -11,4 +11,5 @@ class TahunAkademik extends Model
 
     public $table = 'tahun_akademik';
     protected $guarded = ['id'];
+    public $timestamps = false;
 }

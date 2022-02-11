@@ -45,7 +45,7 @@ class AuthController extends Controller
 
         if (Auth::check()) {
 
-            return redirect()->route('admin.dashboard');
+            return redirect()->route('pendaftar.index');
         } else {
 
             return redirect()->route('login')->withErrors('Email atau password salah')->withInput();

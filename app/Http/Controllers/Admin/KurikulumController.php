@@ -40,7 +40,23 @@ class KurikulumController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $prodi = $request->prodi;
+        $data = [];
+
+        foreach($prodi as $p => $pro){
+            array_push($data, [
+                'prodi_id'    => $pro,
+                'semester'    => $request->semester[$p],
+                'kode'        => $request->kode[$p],
+                'mata_kuliah' => $request->matakuliah[$p],
+                'sks_teori'   => $request->sks_teori[$p],
+                'sks_praktek' => $request->sks_praktek[$p],
+                'jam'         => $request->jam[$p],
+            ]);
+        }
+
+        Kurikulum::insert($data);
+        return back()->with('success', 'Kurikulum berhasil ditambahakan');
     }
 
     /**
@@ -85,6 +101,8 @@ class KurikulumController extends Controller
      */
     public function destroy(Kurikulum $kurikulum)
     {
-        //
+        $kurikulum->delete();
+
+        return 'Kurikulum berhasil dihapus';
     }
 }

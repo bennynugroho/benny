@@ -62,7 +62,9 @@ class KontakController extends Controller
      */
     public function edit($id)
     {
-        //
+        $kontak = Kontak::find($id);
+
+        return response()->json($kontak);
     }
 
     /**
@@ -72,9 +74,20 @@ class KontakController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($id, Request $request)
     {
-        //
+        $kontak = Kontak::find($id);
+
+        $kontak->update([
+            'facebook'  => $request->facebook,
+            'twitter'   => $request->twitter,
+            'instagram' => $request->instagram,
+            'youtube'   => $request->youtube,
+            'email'     => $request->email,
+            'telepon'   => $request->telepon,
+        ]);
+
+        return back()->with('success', 'Data berhasil diupdate');
     }
 
     /**

@@ -8,13 +8,13 @@
                     <h3>Lokasi Kampus</h3>
                     <p class="pb-3"><em>Ray V, Jl. Brigjen H. hasan Basri, Handil Bakti, Kec. Alalak, Kabupaten Barito Kuala, Kalimantan Selatan 70582</em></p>
                     <p>
-                        <strong>Phone:</strong> +62 0851 0015 6666<br>
-                        <strong>Email:</strong> polihasnur@polihasnur.ac.id<br>
+                        <strong>Phone:</strong> {{ $kontak->telepon }}<br>
+                        <strong>Email:</strong> {{ $kontak->email }}<br>
                     </p>
                     <div class="social-links mt-3">
-                        <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-                        <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-                        <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+                        <a href="{{ $kontak->twitter }}" target="_blank" class="twitter"><i class="bx bxl-twitter"></i></a>
+                        <a href="{{ $kontak->facebook }}" target="_blank" class="facebook"><i class="bx bxl-facebook"></i></a>
+                        <a href="{{ $kontak->instagram }}" target="_blank" class="instagram"><i class="bx bxl-instagram"></i></a>
                     </div>
                 </div>
             </div>

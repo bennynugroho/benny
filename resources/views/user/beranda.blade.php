@@ -20,7 +20,7 @@
                             <li>Beasiswa dari Yayasan Hasnur Centre (YHC), mitra industri, dan pemerintah.</li>
                         </ul>
                         <a href="#about" class="btn-app-secondary animate__animated animate__fadeInUp scrollto">Alur Pendaftaran</a>
-                        <a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto"><i class="bi bi-download"></i> Download Formulir</a>
+                        <a href="{{ $formulir->getPath }}" target="_blank" class="btn-get-started animate__animated animate__fadeInUp scrollto"><i class="bi bi-download"></i> Download Formulir</a>
                     </div>
                     </div>
                 </div>
@@ -165,16 +165,16 @@
                     <div class="accordion-list">
                     <ul>
                         <li>
-                        <a data-bs-toggle="collapse" class="collapse" data-bs-target="#accordion-list-1"><span>01</span> Melengkapi Berkas → (Januari 2022 - 30 September 2022) <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+                        <a data-bs-toggle="collapse" class="collapse" data-bs-target="#accordion-list-1"><span>01</span> Melengkapi Berkas → ({{ $info_daftar->getTanggalAwal }} - {{ $info_daftar->getTanggalAkhir }}) <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
                         <div id="accordion-list-1" class="collapse show" data-bs-parent=".accordion-list">
-                            <p>- Fotocopy Ijazah & SKHU berlegalisir (KTP)</p>
-                            <p>- Fotocopy Raport dari semester 1 sampai akhir</p>
-                            <p>- Fotocopy KTP/ Kartu Pelajar</p>
+                            @foreach ($syarat as $syr)
+                                <p>- {{ $syr->syarat }}</p>
+                            @endforeach
                         </div>
                         </li>
     
                         <li>
-                        <a data-bs-toggle="collapse" data-bs-target="#accordion-list-2" class="collapsed"><span>02</span> Mengikuti Ujian Masuk → (Januari 2022 - 30 September 2022) <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+                        <a data-bs-toggle="collapse" data-bs-target="#accordion-list-2" class="collapsed"><span>02</span> Mengikuti Ujian Masuk → ({{ $info_daftar->getTanggalAwal }} - {{ $info_daftar->getTanggalAkhir }}) <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
                         <div id="accordion-list-2" class="collapse" data-bs-parent=".accordion-list">
                             <p>
                                 Seluruh calon mahasiswa wajib mengikuti ujian masuk pada tanggal yang telah ditentukan dengan membawa serta kartu ujian.
@@ -183,10 +183,10 @@
                         </li>
     
                         <li>
-                        <a data-bs-toggle="collapse" data-bs-target="#accordion-list-3" class="collapsed"><span>03</span> Daftar Ulang → (Januari 2022 - 30 September 2022) <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+                        <a data-bs-toggle="collapse" data-bs-target="#accordion-list-3" class="collapsed"><span>03</span> Daftar Ulang → ({{ $info_daftar->getTanggalAwal }} - {{ $info_daftar->getTanggalAkhir }}) <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
                         <div id="accordion-list-3" class="collapse" data-bs-parent=".accordion-list">
                             <p>
-                                Mahasiswa membayarkan uang pangkal melalui Rekening Politeknik Hasnur Bank BNI 666-666-4676 atau dibayarkan langsung di Kampus Polihasnur.
+                                Mahasiswa membayarkan uang pangkal melalui Rekening Politeknik Hasnur Bank {{ $info_daftar->bank }} {{ $info_daftar->rekening }} atau dibayarkan langsung di Kampus Polihasnur.
                             </p>
                         </div>
                         </li>

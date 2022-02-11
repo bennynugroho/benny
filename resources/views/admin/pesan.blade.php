@@ -33,8 +33,8 @@
                                     <td>{{ $pes->pesan }}</td>
                                     <td>{{ $pes->tgl_pesan }}</td>
                                     <td class="text-nowrap">
-                                        <button class="btn btn-danger btn-sm"><i class="bi bi-x"></i></button>
-                                        <button class="btn btn-primary btn-sm"><i class="bi bi-arrow-return-left"></i></button>
+                                        <button class="btn btn-danger btn-sm" onclick="deleteData('{{ route('pesan.destroy', ['pesan' => $pes->id]) }}')"><i class="bi bi-x"></i></button>
+                                        <button class="btn btn-primary btn-sm" onclick="showBalasPesan('{{ route('pesan.show', ['pesan' => $pes->id]) }}', '{{ route('pesan.store', ['pesan_id' => $pes->id]) }}')"><i class="bi bi-arrow-return-left"></i></button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -44,51 +44,88 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalPesan" tabindex="-1" aria-labelledby="modalPesan" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="titleModalPesan">Balas Pesan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="formModalPesan" action="{{ route('pesan.store') }}" method="POST">
+                @csrf
+                    <div class="modal-body">
+                        <div class="mb-3 row">
+                            <label for="email" class="col-sm-2 col-form-label">Kepada</label>
+                            <div class="col-sm-10">
+                                <input type="email" class="form-control" name="email" id="email" readonly>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="pesan" class="col-sm-2 col-form-label">Isi Pesan</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" name="pesan" id="pesan" rows="4" readonly></textarea>
+                            </div>
+                        </div>
+
+                        <hr>
+                        <h5 class="text-center">Balasan Anda</h5>
+                        <hr>
+
+                        <div class="mb-3 row">
+                            <label for="myEmail" class="col-sm-2 col-form-label">Email Saya</label>
+                            <div class="col-sm-10">
+                                <input type="email" class="form-control" name="myEmail" id="myEmail" readonly>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="subjek" class="col-sm-2 col-form-label">Subjek</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="subjek" id="subjek">
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="balasan" class="col-sm-2 col-form-label">Balasan</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" name="balasan" id="balasan" rows="4"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Kirim</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('after-script')
-<script>
-    $(document).ready(function() {
-        $('#table-pesan').DataTable();
-    });
-</script>
+    @include('partials.deleteData')
 
-    {{-- <script>
-        $(document).ready(function(){
-            $('#table-pesan').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: "{{ route('get.pesan') }}",
-                columns: [
-                    {
-                    render: function (data, type, row, meta) {
-                        return meta.row + meta.settings._iDisplayStart + 1;
-                    },
-                    },
-                    {
-                    data: 'nama'
-                    },
-                    {
-                    data: 'email'
-                    },
-                    {
-                    data: 'subyek'
-                    },
-                    {
-                    data: 'pesan'
-                    },
-                    {
-                    data: 'tgl_pesan'
-                    },
-                    {
-                    "render": function ( data, type, row ) {
-                        let html = '<button class="btn btn-danger btn-sm"><i class="bi bi-x"></i></button>';
-                            html += '<button class="btn btn-primary btn-sm"><i class="bi bi-arrow-return-left"></i></button>';
-                        return html;
-                    }
-                    }
-                ],
-            });
+    <script>
+        $(document).ready(function() {
+            $('#table-pesan').DataTable();
         });
-    </script> --}}
+
+        function showBalasPesan(url_show, url_store){
+            $.ajax({
+                url: url_show,
+                type: 'GET',
+                success: function(data) {
+                    $('#titleModalPesan').html('Balas Email');
+                    $('#formModalPesan').attr('action', url_store);
+                    $('#email').val(data.email);
+                    $('#pesan').val(data.pesan);
+                    $('#myEmail').val(data.myEmail);
+                    $('#subjek').val('-');
+
+                    $('#modalPesan').modal('show');
+                }
+            });
+        }
+    </script>
 @endpush

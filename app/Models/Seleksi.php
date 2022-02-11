@@ -14,11 +14,11 @@ class Seleksi extends Model
     
     public function daftar()
     {
-        return $this->belongsTo(Daftar::class, 'daftar_id');
+        return $this->belongsTo(Pendaftar::class, 'daftar_id');
     }
     
     public function tahun_akademik()
     {
-        return $this->belongsTo(TahunAkademik::class, 'thn_akademik_id');
+        return $this->belongsTo(TahunAkademik::class, 'thn_akd_id', 'id');
     }
 }

@@ -11,4 +11,5 @@ class Kontak extends Model
 
     public $table = 'akun_kontak';
     protected $guarded = ['id'];
+    public $timestamps = false;
 }

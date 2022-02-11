@@ -34,12 +34,16 @@
                         Pendaftaran secara offline dilakukan dengan langsung mendatangi kampus Politeknik Hasnur yang beralamat di Jl. Brigjen H. Hasan Basri, Handil Bakti Kec. Alalak - Kalsel. Pedaftar wajib membawa serta dokumen-dokumen berikut:
                     </p>
                     <p class="pt-0">
-                        - Fotocopy Ijazah & SKHU berlegalisir (KTP)
+                        @foreach ($syarat as $syr)
+                            - {{ $syr->syarat }}
+                            <br>
+                        @endforeach
+                        {{-- - Fotocopy Ijazah & SKHU berlegalisir (KTP)
                         <br>
                         - Fotocopy Raport dari semester 1 sampai akhir
                         <br>
                         - Fotocopy KTP/ Kartu Pelajar
-                        <br>
+                        <br> --}}
                     </p>
 
                     <p class="pt-3">
@@ -51,7 +55,7 @@
                     <p class="pt-3">
                         <strong>Hubungi Via WA :</strong>
                         <br>
-                        <i class="bi bi-whatsapp me-1" style="font-size: inherit;"></i> 0851-0015-6666
+                        <i class="bi bi-whatsapp me-1" style="font-size: inherit;"></i> {{ $kontak->telepon }}
                     </p>
                 </div>
             </div>
@@ -67,7 +71,7 @@
                 <div class="count-box">
                     <h4>3. Daftar Ulang</h4>
                     <p class="pt-0">
-                        Setelah dinyatakan lulus dari Ujian Masuk, peserta tes melakukan pendaftaran ulang dengan menyetor biaya pendaftaran dan uang pangkal ke Politeknik Hasnur. Pembayaran dilakukan melalui transfer bank pada nomor rekening BNI Politeknik Hasnur 666-666-4676. Selain itu, dapat pula dilakukan secara tunai dengan membayar langsung di Kampus Politeknik Hasnur. Pembayaran dilakukan selambat-lambatnya tanggal <strong>10 Oktober 2022</strong>.
+                        Setelah dinyatakan lulus dari Ujian Masuk, peserta tes melakukan pendaftaran ulang dengan menyetor biaya pendaftaran dan uang pangkal ke Politeknik Hasnur. Pembayaran dilakukan melalui transfer bank pada nomor rekening {{ $infoDaftar->bank }} Politeknik Hasnur {{ $infoDaftar->rekening }}. Selain itu, dapat pula dilakukan secara tunai dengan membayar langsung di Kampus Politeknik Hasnur. Pembayaran dilakukan selambat-lambatnya tanggal <strong>{{ $infoDaftar->getTanggalBayar }}</strong>.
                     </p>
                 </div>
             </div>
@@ -91,12 +95,14 @@
                     <th>SPP/semester</th>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Teknik Otomotif</td>
-                        <td>Rp. 3.500.000</td>
-                        <td>Rp. 3.000.000</td>
-                    </tr>
+                    @foreach ($biaya as $by)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $by->prodi->nama }}</td>
+                            <td>{{ $by->getUangPangkal }}</td>
+                            <td>{{ $by->getSpp }}</td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

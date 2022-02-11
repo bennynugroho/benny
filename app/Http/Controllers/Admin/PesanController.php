@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\SendMail;
+use App\Models\Balasan;
+use App\Models\Kontak;
 use App\Models\Pesan;
 use Illuminate\Http\Request;
-use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Mail;
 
 class PesanController extends Controller
 {
@@ -41,7 +44,28 @@ class PesanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'subjek' => 'required',
+            'balasan' => 'required',
+        ]);
+
+        $pesan = Pesan::find($request->pesan_id);
+
+        // Balasan::create([
+        //     'subjek' => $request->subjek,
+        //     'isi' => $request->balasan,
+        //     'pesan_id' => $request->pesan_id,
+        // ]);
+
+        $attr = [
+            'nama' => $pesan->nama,
+            'pesan' => $request->balasan,
+            'subject' => $request->subjek,
+        ];
+
+        Mail::to($request->email)->send(new SendMail($attr));
+
+        return back()->with('success', 'Pesan berhasil dikirimkan');
     }
 
     /**
@@ -52,7 +76,9 @@ class PesanController extends Controller
      */
     public function show(Pesan $pesan)
     {
-        //
+        $pesan['myEmail'] = Kontak::all()->first()->email;
+
+        return response()->json($pesan);
     }
 
     /**
@@ -75,7 +101,7 @@ class PesanController extends Controller
      */
     public function update(Request $request, Pesan $pesan)
     {
-        //
+        // 
     }
 
     /**
@@ -86,6 +112,8 @@ class PesanController extends Controller
      */
     public function destroy(Pesan $pesan)
     {
-        //
+        $pesan->delete();
+
+        return 'Pesan berhasil dihapus';
     }
 }

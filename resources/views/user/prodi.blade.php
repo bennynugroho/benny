@@ -5,35 +5,34 @@
     <section id="prodi" class="about pt-110">
         <div class="container" data-aos="fade-up">
 
-        <div class="section-title">
-            <h2>Prodi</h2>
-            <p>Budidaya Tanaman Perkebunan</p>
-        </div>
+        @foreach ($prodi as $pro)
+            <div class="row content">
+                <div class="col-lg-6">
+                    <div class="section-title">
+                        <h2>Prodi</h2>
+                        <p>{{ $pro->nama }}</p>
+                    </div>
+                    <div class="mb-3">
+                        <h5>Visi :</h5>
+                        <ul>
+                            @foreach ($pro->getVisi as $visi)
+                                <li><i class="ri-check-double-line"></i> {{ $visi }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
 
-        <div class="row content">
-            <div class="col-lg-6">
-                <h5>Visi :</h5>
-                <p>Menjadi program studi unggula di bidang budidaya tanaman perkebunan dalam penerapan teknologi budidaya tanaman perkebunan.</p>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                magna aliqua.
-            </p>
-            <ul>
-                <li><i class="ri-check-double-line"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat</li>
-                <li><i class="ri-check-double-line"></i> Duis aute irure dolor in reprehenderit in voluptate velit</li>
-                <li><i class="ri-check-double-line"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat</li>
-            </ul>
-            </div>
-            <div class="col-lg-6 pt-4 pt-lg-0">
-            <p>
-                Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                culpa qui officia deserunt mollit anim id est laborum.
-            </p>
-            <a href="#" class="btn-learn-more">Learn More</a>
+                    <h5>Misi :</h5>
+                    <ul>
+                        @foreach ($pro->getMisi as $misi)
+                            <li><i class="ri-check-double-line"></i> {{ $misi }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                <div class="col-lg-6 text-end pt-4 pt-lg-0">
+                    <img src="{{ asset('assets/img/picture/default_prodi.jpg') }}" class="img-thumbnail" width="450" alt="">
+                </div>
             </div>
         </div>
-
-        </div>
+        @endforeach
     </section><!-- End Prodi Section -->
 @endsection

@@ -11,7 +11,7 @@
                         <i class="bi bi-envelope-fill"></i>
                     </li>
                     <li class="nav-item px-2">
-                        <a href="#" class="nav-link">{{ auth()->user()->name }} <i class="bi bi-person-circle"></i></a>
+                        <a href="#" class="nav-link">{{ auth()->user()->nama }} <i class="bi bi-person-circle"></i></a>
                     </li>
                 </ul>
             </div>
