@@ -35,33 +35,13 @@ use App\Http\Controllers\Beranda\PendaftaranController As BerandaPendaftaranCont
 |
 */
 
-// Route::get('/', function () {
-//     return view('user.beranda');
-// });
-// Route::get('/hubungi', function () {
-//     return view('user.hubungi');
-// });
-// Route::get('/beasiswa', function () {
-//     return view('user.beasiswa');
-// });
-// Route::get('/pendaftaran', function () {
-//     return view('user.pendaftaran');
-// });
-// Route::get('/prodi', function () {
-//     return view('user.prodi');
-// });
-
 // Auth
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/postLogin', [AuthController::class, 'postLogin'])->name('auth.post.login');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// Route::get('/login', function(){
-//     return view('auth.login');
-// })->name('login');
-
 // Admin
-Route::prefix('admin')->group(function (){
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function (){
     Route::get('/dashboard', function(){
         return view('admin.dashboard');
     })->name('admin.dashboard');
@@ -69,7 +49,6 @@ Route::prefix('admin')->group(function (){
     Route::resource('pesan', PesanController::class);
     Route::resource('rekomendasi', RekomendasiController::class);
     Route::resource('kurikulum', KurikulumController::class);
-    Route::resource('prodi', ProdiController::class);
     Route::resource('kontak', KontakController::class);
     Route::resource('syarat', PersyaratanController::class);
     Route::resource('jalur', JalurMasukController::class);
@@ -85,6 +64,10 @@ Route::prefix('admin')->group(function (){
     // Tahun Akademik
     Route::resource('tahun_akd', TahunAkademikController::class);
     Route::get('/status-tahun', [TahunAkademikController::class, 'updateStatus']);
+
+    // Prodi
+    Route::resource('prodi', ProdiController::class);
+    Route::get('/createSlug/{prodi}', [ProdiController::class, 'createSlug']);
 
     // Seleksi
     Route::resource('seleksi', SeleksiController::class);
@@ -109,7 +92,9 @@ Route::prefix('admin')->group(function (){
 // Beranda
 Route::get('/', [BerandaController::class, 'index']);
 Route::get('/jalur-masuk', [BerandaController::class, 'jalur_masuk']);
+Route::get('/pengumuman', [BerandaController::class, 'pengumuman']);
 Route::get('/prodi', [BerandaController::class, 'prodi']);
+Route::get('/prodi/{slug}', [BerandaController::class, 'kurikulum']);
 Route::get('/hubungi', [BerandaController::class, 'contact']);
 Route::post('/kirimpesan', [BerandaController::class, 'kirimPesan'])->name('kirim.pesan');
 

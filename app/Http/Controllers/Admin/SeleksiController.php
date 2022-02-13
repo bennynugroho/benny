@@ -15,16 +15,25 @@ class SeleksiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        
+
         $tahun_akademik = TahunAkademik::all();
-        $tahun_id = $tahun_akademik->where('status', 1)->first();
+
+        if($request->tahun_akademik){
+            $tahun_id = $request->tahun_akademik;
+        }else{
+            $tahun_id = $tahun_akademik->where('status', 1)->first()->id;
+        }
+
+        $seleksi_id = Seleksi::pluck('daftar_id')->toArray();
 
         $data = [
             'tahun_akademik' => $tahun_akademik,
             'tahun_id' => $tahun_id,
-            'seleksi' => Seleksi::all(),
-            'pendaftar' => Pendaftar::where('thn_akd_id', $tahun_id->id)->get(),
+            'seleksi' => Seleksi::with(['daftar', 'tahun_akademik'])->where('thn_akd_id', $tahun_id)->get(),
+            'pendaftar' => Pendaftar::where('thn_akd_id', $tahun_id)->whereNotIn('id', $seleksi_id)->get(),
         ];
 
         return view('admin.seleksi', $data);
@@ -77,7 +86,6 @@ class SeleksiController extends Controller
             'daftar_id'    => $request->daftar_id,
             'thn_akd_id'   => $request->tahun_id,
             'nim'          => $request->nim,
-            'asal_sekolah' => $request->slta,
         ]);
 
         return back()->with('success', 'Berhasil menambahkan data');
@@ -120,7 +128,6 @@ class SeleksiController extends Controller
             'daftar_id'    => $request->daftar_id,
             'thn_akd_id'   => $request->tahun_id,
             'nim'          => $request->nim,
-            'asal_sekolah' => $request->slta,
         ]);
 
         return back()->with('success', 'Berhasil mengubah data');

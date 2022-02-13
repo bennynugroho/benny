@@ -21,12 +21,22 @@
             });
         }
 
+        function updateBadgeStatus(status, daftar_id){
+            if(status  == 1){
+                $('#status-pendaftar-'+ daftar_id).html('<span class="badge bg-success">Sudah</span>');
+            }else{
+                $('#status-pendaftar-'+ daftar_id).html('<span class="badge bg-danger">Belum</span>');
+            }
+        }
+
         function changeTahun(tahun_id){
             showTablePendaftar(tahun_id);
         }
 
         function updateStatus(id, element){
             let status = $('#checkbox-pendaftar-'+ id).is(':checked') ? '1' : '0';
+
+            updateBadgeStatus(status, id);
 
             $.ajax({
                 type: "get",
@@ -141,12 +151,8 @@
 
 @section('content')
     <div class="row">
-        <div class="col-12">
-            <div class="card my-3">
-                <div class="card-body">
-                    <h3>Data Pendaftar</h3>
-                </div>
-            </div>
+        <div class="page-title">
+            <h3>Data Pendaftar</h3>
         </div>
         <div class="col-12">
             <div class="card my-3">

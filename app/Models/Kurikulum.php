@@ -11,4 +11,9 @@ class Kurikulum extends Model
 
     public $table = 'kurikulum';
     protected $guarded = ['id'];
+
+    public function prodi()
+    {
+        return $this->belongsTo(Prodi::class);
+    }
 }

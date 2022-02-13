@@ -25,25 +25,23 @@
 
 @section('content')
     <div class="row">
-        <div class="col">
-            <div class="card my-3">
-                <div class="card-body">
-                    <h3>Data Kontak</h3>
-                </div>
+        <div class="col-6">
+            <div class="page-title">
+                <h3>Data Kontak</h3>
             </div>
         </div>
+        <div class="col-6 text-end">
+            <button class="btn btn-success" onclick="showEditModal('{{ $kontak->id }}', '{{ route('kontak.edit', ['kontak' => $kontak->id]) }}')">
+                <i class="bi bi-pencil-square"></i> Ubah
+            </button>
+        </div>
     </div>
-
     <div class="row">
-        <div class="col">
-            <div class="card">
+        <div class="col-12">
+            <div class="card my-3">
                 <div class="card-body">
-                    <button class="btn btn-success" onclick="showEditModal('{{ $kontak->id }}', '{{ route('kontak.edit', ['kontak' => $kontak->id]) }}')">
-                        <i class="bi bi-pencil-square"></i> Ubah
-                    </button>
-
                     <div class="table-responsive my-3">
-                        <table class="table">
+                        <table class="table table-striped">
                             <tbody>
                                 <tr>
                                     <td>Facebook</td>

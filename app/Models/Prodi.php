@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class Prodi extends Model
 {
-    use HasFactory;
+    use HasFactory, Sluggable;
+
     public $table = 'prodi';
     protected $guarded = ['id'];
 
@@ -27,5 +29,14 @@ class Prodi extends Model
         $misi = explode('•', $this->misi);
 
         return $misi;
+    }
+
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'nama'
+            ]
+        ];
     }
 }

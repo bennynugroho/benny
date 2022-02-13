@@ -1,12 +1,20 @@
 @extends('layout.admin')
 
+@push('after-style')
+    <style>
+        .img-thumbnail{
+            height: 250px;
+        }
+    </style>
+@endpush
+
 @section('content')
     <div class="row mb-3">
         <div class="col-lg-3">
             <div class="card">
                 <div class="card-body">
                     <div class="text-center px-3 mb-3">
-                        <img src="{{ $pendaftar->getFoto }}" height="190" class="w-100">
+                        <img src="{{ $pendaftar->getFoto }}" class="img-thumbnail">
                     </div>
                     <table class="table">
                         <tbody>
@@ -55,7 +63,7 @@
                     @method('put')
                     @csrf
                     <div class="card-body">
-                        <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                        <ul class="nav nav-tabs" id="pills-tab" role="tablist">
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link active" id="pills-profil-tab" data-bs-toggle="pill" data-bs-target="#pills-profil" type="button" role="tab" aria-controls="pills-profil" aria-selected="true"><i class="bi bi-person-circle"></i> Profil</button>
                             </li>

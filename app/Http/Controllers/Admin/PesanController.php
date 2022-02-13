@@ -20,7 +20,7 @@ class PesanController extends Controller
     public function index()
     {
         $data = [
-            'pesan' => Pesan::all(),
+            'pesan' => Pesan::with(['balasan'])->get(),
         ];
 
         return view('admin.pesan', $data);
@@ -51,11 +51,11 @@ class PesanController extends Controller
 
         $pesan = Pesan::find($request->pesan_id);
 
-        // Balasan::create([
-        //     'subjek' => $request->subjek,
-        //     'isi' => $request->balasan,
-        //     'pesan_id' => $request->pesan_id,
-        // ]);
+        Balasan::create([
+            'subjek' => $request->subjek,
+            'isi' => $request->balasan,
+            'pesan_id' => $request->pesan_id,
+        ]);
 
         $attr = [
             'nama' => $pesan->nama,
@@ -76,6 +76,7 @@ class PesanController extends Controller
      */
     public function show(Pesan $pesan)
     {
+        $pesan->load(['balasan']);
         $pesan['myEmail'] = Kontak::all()->first()->email;
 
         return response()->json($pesan);

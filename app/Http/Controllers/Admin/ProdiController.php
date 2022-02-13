@@ -7,6 +7,7 @@ use App\Models\Biaya;
 use App\Models\Kurikulum;
 use App\Models\Prodi;
 use Illuminate\Http\Request;
+use \Cviebrock\EloquentSluggable\Services\SlugService;
 
 class ProdiController extends Controller
 {
@@ -19,7 +20,7 @@ class ProdiController extends Controller
     {
         $data = [
             'prodi'     => Prodi::all(),
-            'kurikulum' => Kurikulum::all(),
+            'kurikulum' => Kurikulum::with(['prodi'])->get(),
         ];
 
         return view('admin.prodi', $data);
@@ -45,6 +46,7 @@ class ProdiController extends Controller
     {
         $validate = $request->validate([
             'nama' => 'required',
+            'slug' => 'required',
             'visi' => 'required',
             'misi' => 'required',
         ]);
@@ -120,5 +122,11 @@ class ProdiController extends Controller
 
         // return back()->with('success', 'Data berhasil dihapus');
         return 'Data berhasil dihapus';
+    }
+
+    public function createSlug($prodi){
+        $slug = SlugService::createSlug(Prodi::class, 'slug', $prodi);
+
+        return response()->json(['slug' => $slug]);
     }
 }

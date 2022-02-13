@@ -1,13 +1,18 @@
+{{-- template script --}}
+<script src="{{ asset('admin/js/feather-icons/feather.min.js') }}"></script>
+<script src="{{ asset('admin/vendors/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
+<script src="{{ asset('admin/vendors/simple-datatables/simple-datatables.js') }}"></script>
+<script src="{{ asset('admin/js/app.js') }}"></script>
+<script src="{{ asset('admin/js/main.js') }}"></script>
+
 <script src="{{ asset('assets/js/jquery-3.6.0.min.js') }}"></script>
-{{-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script> --}}
-{{-- <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script> --}}
-<script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+{{-- <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.min.js') }}"></script> --}}
 <script src="{{ asset('assets/js/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('assets/js/dataTables.bootstrap5.min.js') }}"></script>
+{{-- <script src="{{ asset('assets/js/dataTables.bootstrap5.min.js') }}"></script> --}}
 <script src="{{ asset('assets/vendor/sweetalert2/sweetalert2.all.min.js') }}"></script>
 
 {{-- sidebar --}}
-<script type='text/Javascript'>
+{{-- <script type='text/Javascript'>
     document.addEventListener("DOMContentLoaded", function(event) {
 
     const showNavbar = (toggleId, navId, bodyId, headerId) =>{
@@ -46,4 +51,4 @@
     
     // Your code to run since DOM is loaded and ready
     });
-</script>
+</script> --}}

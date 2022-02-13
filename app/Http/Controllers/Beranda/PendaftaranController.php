@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Beranda;
 use App\Http\Controllers\Controller;
 use App\Models\Biaya;
 use App\Models\InfoPendaftaran;
+use App\Models\Kelas;
 use App\Models\Pendaftar;
 use App\Models\Persyaratan;
 use App\Models\SumberInfo;
@@ -45,6 +46,7 @@ class PendaftaranController extends Controller
     {
         $data = [
             'sumber' => SumberInfo::all(),
+            'kelas'  => Kelas::all(),
         ];
 
         $data += $this->primary();
@@ -75,6 +77,7 @@ class PendaftaranController extends Controller
             'tlp'              => 'required',
             'wa'               => 'required',
             'email'            => 'email|unique:pendaftar,email|required',
+            'foto'             => 'required|image|file|max:1536',
             'slta'             => 'required',
             'thn_slta'         => 'required',
             'nisn'             => 'required',
@@ -98,34 +101,15 @@ class PendaftaranController extends Controller
             'sumber_info'      => 'required',
         ];
 
-        if($request->foto){
-            $rules['foto'] = 'required|image|file|max:1536';
-            $foto = $request->file('foto');
-        }
-        
-        if($request->foto_storage){
-            $rules['foto_storage'] = 'required';
-            // $foto = file_get_contents($request->foto_storage);
-            // $foto = $request->file('foto_storage');
-            $foto = Storage::download($request->foto_storage);
-            $nama_foto = $request->nama_foto_storage;
-
-            // return response($foto);
-            dd($foto);
-        }
-
         $validatedData = $request->validate($rules);
 
-        // if($request->foto_storage){
-        //     $foto->storeAs('public/pendaftar', $request->email.'_'.$nama_foto);
-        // }
+        $foto = $request->file('foto');
 
-        if($request->foto){
-            $validatedData['foto'] = $request->email.'_'.$foto->getClientOriginalName();
-        }
+        $foto->storeAs('public/pendaftar', $request->email.'_'.$foto->getClientOriginalName());        
+
+        $validatedData['foto'] = $request->email.'_'.$foto->getClientOriginalName();        
 
         $tahun = TahunAkademik::where('status', 1)->first();
-
         
         $validatedData['tgl_daftar'] = today();
         $validatedData['thn_akd_id'] = $tahun->id;

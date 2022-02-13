@@ -26,6 +26,10 @@
             border-bottom: 2px solid #0F2F57;
             font-weight: 600;
         }
+
+        .img-thumbnail{
+            height: 300px;
+        }
     </style>
 @endpush
 
@@ -44,6 +48,9 @@
             checkTabKeluarga();
             checkTabProdi();
             checkTabInfo();
+
+            // disable select pilihan prodi2
+            checkPilProdi($('#prodi1_id').val());
         });
 
         function checkTabDiri(){
@@ -67,7 +74,7 @@
                 $input_value[index] = $(this).val();
             });
 
-            if(!($input_value.includes(''))){
+            if(!($input_value.includes('')) && ($('#foto').val() != '')){
                 $('#btn-next-pendidikan').attr('disabled', false);
                 $('#pills-keluarga-tab').removeClass('disabled');
             }else{
@@ -82,7 +89,7 @@
                 $input_value[index] = $(this).val();
             });
 
-            if(!($input_value.includes(''))){
+            if(!($input_value.includes('')) && ($('#foto').val() != '')){
                 $('#btn-next-keluarga').attr('disabled', false);
                 $('#pills-prodi-tab').removeClass('disabled');
             }else{
@@ -97,7 +104,7 @@
                 $input_value[index] = $(this).val();
             });
 
-            if(!($input_value.includes(''))){
+            if(!($input_value.includes('')) && ($('#foto').val() != '')){
                 $('#btn-next-prodi').attr('disabled', false);
                 $('#pills-tambahan-tab').removeClass('disabled');
             }else{
@@ -178,6 +185,10 @@
                 checkTabProdi();
             }
 
+            if(element.id == 'prodi1_id'){
+                checkPilProdi(element.value);
+            }
+
             saveStorage(element.id, $(`#${element.id}`).val(), 'combobox')
         }
 
@@ -189,7 +200,6 @@
 
             if(!check){
                 if(type_element == 'checkbox'){
-                    console.log(check);
                     localStorage.removeItem(id_element);
                 }else{
                     storage.push(obj);
@@ -203,6 +213,37 @@
             });
 
             localStorage.setItem(id_element, JSON.stringify(storage));
+        }
+
+        // check pilihan prodi
+        function checkPilProdi(valProdi){
+            if(valProdi != ''){
+                $('#prodi2_id option').show();
+                $(`#prodi2_id option[value='${valProdi}']`).hide();
+                $('#prodi2_id').attr('disabled', false);
+            }else{
+                $(`#prodi2_id option[value='${valProdi}']`).hide();
+                $('#prodi2_id').attr('disabled', true);
+            }
+        }
+
+        // event change foto
+        function eventChangeImg(input){
+            checkTabDiri();
+            checkTabPendidikan();
+            checkTabKeluarga();
+            checkTabProdi();
+            checkTabInfo();
+
+            if (input.files && input.files[0]) {
+                let reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#preview-img').html('<img class="img-thumbnail mt-3" src="'+ e.target.result +'" />');
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
         }
 
         @if (Session::has('success'))
@@ -219,7 +260,7 @@
         @endif
     </script>
 
-    <script>
+    {{-- <script>
         // event on input image
         function eventImage(evt){
             checkTabDiri();
@@ -280,14 +321,6 @@
             $('#preview-img').html('<img class="img-thumbnail mt-3" src="'+ imgData +'" />');
         }
 
-        // function displayImg(imgData){
-        //     $('#div-foto').html('');
-        //     $('#storage_foto').val(imgData);
-        //     $('#storage_nama_foto').val()
-        //     $('#preview-img').html('<img class="text-center img-thumbnail" src="'+ imgData +'" />');
-        //     $('#delete-preview-img').html('<button class="btn btn-sm btn-danger mt-2" onclick="removeLocalImg()">Ganti Gambar</button>')
-        // }
-
         function removeLocalImg(){
             imagesObject = [];
             localStorage.removeItem('foto');
@@ -297,7 +330,7 @@
             $('#storage-foto').val('');
             $('#div-foto').html(`<input type="file" name="foto" id="foto" class="form-control input-daftar input-tabdiri @error('foto') is-invalid @enderror" onmouseover="mouseOverImg()" data-height="300" required />`);
         }
-    </script>
+    </script> --}}
 @endpush
 
 @section('main')
@@ -342,6 +375,11 @@
                                         <div class="mb-3">
                                             <label for="nama" class="form-label">Nama Lengkap</label>
                                             <input type="text" class="form-control input-daftar input-tabdiri @error('nama') is-invalid @enderror" name="nama" id="nama" value="{{ old('nama') }}" onkeyup="checkTabDiri()" onblur="saveStorage('nama', this.value, 'text')" required>
+                                            @error('nama')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Jenis Kelamin</label>
@@ -378,58 +416,118 @@
                                         <div class="mb-3">
                                             <label for="tempat_lahir" class="form-label">Tempat Lahir</label>
                                             <input type="text" class="form-control input-daftar input-tabdiri @error('tempat_lahir') is-invalid @enderror" name="tempat_lahir" id="tempat_lahir" value="{{ old('tempat_lahir') }}" onkeyup="checkTabDiri()" onblur="saveStorage('tempat_lahir', this.value, 'text')" required>
+                                            @error('tempat_lahir')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                         <div class="mb-3">
                                             <label for="tanggal_lahir" class="form-label">Tanggal Lahir</label>
                                             <input type="date" class="form-control input-daftar input-tabdiri @error('tanggal_lahir') is-invalid @enderror" name="tanggal_lahir" id="tanggal_lahir" value="{{ old('tanggal_lahir') }}" onchange="checkTabDiri()" onblur="saveStorage('tanggal_lahir', this.value, 'date')" required>
+                                            @error('tanggal_lahir')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                         <div class="mb-3">
                                             <label for="alamat" class="form-label">Alamat</label>
                                             <textarea class="form-control input-daftar input-tabdiri @error('alamat') is-invalid @enderror" id="alamat" name="alamat" rows="4" onkeyup="checkTabDiri()" onblur="saveStorage('alamat', this.value, 'text-area')" required>{{ old('alamat') }}</textarea>
+                                            @error('alamat')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                         <div class="mb-3">
                                             <label for="nik" class="form-label">NIK</label>
                                             <input type="number" class="form-control input-daftar @error('nik') is-invalid @enderror" name="nik" id="nik" value="{{ old('nik') }}" onkeyup="checkTabDiri()" onblur="saveStorage('nik', this.value, 'number')" required>
+                                            @error('nik')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                         <div class="mb-3">
                                             <label for="kk" class="form-label">No. Kartu Keluarga</label>
                                             <input type="number" class="form-control input-daftar input-tabdiri @error('kk') is-invalid @enderror" name="kk" id="kk" onkeyup="checkTabDiri()" onblur="saveStorage('kk', this.value, 'text')" value="{{ old('kk') }}" required>
+                                            @error('kk')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                         <div class="mb-3">
                                             <label for="kel" class="form-label">Kelurahan</label>
                                             <input type="text" class="form-control input-daftar input-tabdiri @error('kel') is-invalid @enderror" name="kel" id="kel" value="{{ old('kel') }}" onblur="saveStorage('kel', this.value, 'text')" onkeyup="checkTabDiri()" required>
+                                            @error('kel')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                         <div class="mb-3">
                                             <label for="kec" class="form-label">Kecamatan</label>
                                             <input type="text" class="form-control input-daftar input-tabdiri @error('kec') is-invalid @enderror" name="kec" id="kec" value="{{ old('kec') }}" onblur="saveStorage('kec', this.value, 'text')" onkeyup="checkTabDiri()" required>
+                                            @error('kec')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label for="kp" class="form-label">Kode Pos</label>
                                             <input type="number" class="form-control input-daftar input-tabdiri @error('kp') is-invalid @enderror" name="kp" id="kp" value="{{ old('kp') }}" onblur="saveStorage('kp', this.value, 'number')" onkeyup="checkTabDiri()" required>
+                                            @error('kp')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                         <div class="mb-3">
                                             <label for="tlp" class="form-label">Telepon / HP</label>
                                             <input type="number" class="form-control input-daftar input-tabdiri @error('tlp') is-invalid @enderror" name="tlp" id="tlp" value="{{ old('tlp') }}" onblur="saveStorage('tlp', this.value, 'number')" onkeyup="checkTabDiri()" required>
+                                            @error('tlp')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                         <div class="mb-3">
                                             <label for="wa" class="form-label">No. Whatsapp</label>
                                             <input type="number" class="form-control input-daftar input-tabdiri @error('wa') is-invalid @enderror" name="wa" id="wa" value="{{ old('wa') }}" onblur="saveStorage('wa', this.value, 'number')" onkeyup="checkTabDiri()" required>
+                                            @error('wa')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                         <div class="mb-3">
                                             <label for="email" class="form-label">Email</label>
                                             <input type="email" class="form-control input-daftar input-tabdiri @error('email') is-invalid @enderror" name="email" id="email" value="{{ old('email') }}" onblur="saveStorage('email', this.value, 'email')" onkeyup="checkTabDiri()" required>
+                                            @error('email')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Foto Profil (Rekomendasi Dimensi Foto : 300 x 300 pixel atau Ukuran maksimal 1,5 MB)</label>
                                             <div id="div-foto">
-                                                <input type="file" name="foto" id="foto" class="form-control input-daftar input-tabdiri @error('foto') is-invalid @enderror" onmouseover="mouseOverImg()" data-height="300" required />
+                                                <input type="file" name="foto" id="foto" class="form-control input-daftar input-tabdiri @error('foto') is-invalid @enderror" onchange="eventChangeImg(this)" data-height="300" required />
+                                                @error('foto')
+                                                    <div class="invalid-feedback d-block">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
                                             </div>
-                                            <input type="hidden" name="foto_storage" id="storage_foto">
-                                            <input type="hidden"  name="nama_foto_storage" id="storage_nama_foto">
                                             <div id="preview-img" class="text-center"></div>
-                                            <div id="delete-preview-img" class="text-end"></div>
+                                            {{-- <input type="hidden" name="foto_storage" id="storage_foto">
+                                            <input type="hidden"  name="nama_foto_storage" id="storage_nama_foto">
+                                            <div id="delete-preview-img" class="text-end"></div> --}}
                                         </div>
                                     </div>
                                     <div class="row mt-5">
@@ -447,32 +545,67 @@
                                         <div class="mb-3">
                                             <label for="slta" class="form-label">Sekolah Asal (SLTA)</label>
                                             <input type="text" class="form-control input-daftar input-tabpendidikan @error('slta') is-invalid @enderror" name="slta" id="slta" value="{{ old('slta') }}" onkeyup="checkTabPendidikan()" onblur="saveStorage('slta', this.value, 'text')" required>
+                                            @error('slta')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                         <div class="mb-3">
                                             <label for="thn_slta" class="form-label">Tahun Masuk</label>
                                             <input type="number" class="form-control input-daftar input-tabpendidikan @error('thn_slta') is-invalid @enderror" name="thn_slta" id="thn_slta" value="{{ old('thn_slta') }}" onkeyup="checkTabPendidikan()" onblur="saveStorage('thn_slta', this.value, 'text')" required>
+                                            @error('thn_slta')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                         <div class="mb-3">
                                             <label for="nisn" class="form-label">Nomor Induk Siswa Nasional (NISN)</label>
                                             <input type="number" class="form-control input-daftar input-tabpendidikan @error('nisn') is-invalid @enderror" name="nisn" id="nisn" value="{{ old('nisn') }}" onkeyup="checkTabPendidikan()" onblur="saveStorage('nisn', this.value, 'text')" required>
+                                            @error('nisn')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                         <div class="mb-3">
                                             <label for="npsn" class="form-label">Nomor Pokok Sekolah Nasional (NPSN)</label>
                                             <input type="number" class="form-control input-daftar input-tabpendidikan @error('npsn') is-invalid @enderror" name="npsn" id="npsn" value="{{ old('npsn') }}" onkeyup="checkTabPendidikan()" onblur="saveStorage('npsn', this.value, 'text')" required>
+                                            @error('npsn')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label for="jur_slta" class="form-label">Jurusan / Program Keahlian</label>
                                             <input type="text" class="form-control input-daftar input-tabpendidikan @error('jur_slta') is-invalid @enderror" name="jur_slta" id="jur_slta" value="{{ old('jur_slta') }}" onkeyup="checkTabPendidikan()" onblur="saveStorage('jur_slta', this.value, 'text')" required>
+                                            @error('jur_slta')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                         <div class="mb-3">
                                             <label for="prestasi_akd" class="form-label">Prestasi Akademik</label>
                                             <input type="text" class="form-control input-daftar input-tabpendidikan @error('prestasi_akd') is-invalid @enderror" name="prestasi_akd" id="prestasi_akd" value="{{ old('prestasi_akd') }}" onkeyup="checkTabPendidikan()" onblur="saveStorage('prestasi_akd', this.value, 'text')" required>
+                                            @error('prestasi_akd')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                         <div class="mb-3">
                                             <label for="prestasi_non_akd" class="form-label">Prestasi Non Akademik</label>
                                             <input type="text" class="form-control input-daftar input-tabpendidikan @error('prestasi_non_akd') is-invalid @enderror" name="prestasi_non_akd" id="prestasi_non_akd" value="{{ old('prestasi_non_akd') }}" onkeyup="checkTabPendidikan()" onblur="saveStorage('prestasi_non_akd', this.value, 'text')" required>
+                                            @error('prestasi_non_akd')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="row mt-5">
@@ -491,22 +624,47 @@
                                         <div class="mb-3">
                                             <label for="ayah" class="form-label">Nama Ayah / Wali</label>
                                             <input type="text" class="form-control input-daftar input-tabkeluarga @error('ayah') is-invalid @enderror" name="ayah" id="ayah" value="{{ old('ayah') }}" onkeyup="checkTabKeluarga()" onblur="saveStorage('ayah', this.value, 'text')" required>
+                                            @error('ayah')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                         <div class="mb-3">
                                             <label for="kerja_ayah" class="form-label">Pekerjaan Ayah / Wali</label>
                                             <input type="text" class="form-control input-daftar input-tabkeluarga @error('kerja_ayah') is-invalid @enderror" name="kerja_ayah" id="kerja_ayah" value="{{ old('kerja_ayah') }}" onkeyup="checkTabKeluarga()" onblur="saveStorage('kerja_ayah', this.value, 'text')" required>
+                                            @error('kerja_ayah')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                         <div class="mb-3">
                                             <label for="ibu" class="form-label">Nama Ibu / Wali</label>
                                             <input type="text" class="form-control input-daftar input-tabkeluarga @error('ibu') is-invalid @enderror" name="ibu" id="ibu" value="{{ old('ibu') }}" onkeyup="checkTabKeluarga()" onblur="saveStorage('ibu', this.value, 'text')" required>
+                                            @error('ibu')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                         <div class="mb-3">
                                             <label for="kerja_ibu" class="form-label">Pekerjaan Ibu / Wali</label>
                                             <input type="text" class="form-control input-daftar input-tabkeluarga @error('kerja_ibu') is-invalid @enderror" name="kerja_ibu" id="kerja_ibu" value="{{ old('kerja_ibu') }}" onkeyup="checkTabKeluarga()" onblur="saveStorage('kerja_ibu', this.value, 'text')" required>
+                                            @error('kerja_ibu')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                         <div class="mb-3">
                                             <label for="jum_anak" class="form-label">Jumlah Anak</label>
                                             <input type="number" class="form-control input-daftar input-tabkeluarga @error('jum_anak') is-invalid @enderror" name="jum_anak" id="jum_anak" value="{{ old('jum_anak') }}" onkeyup="checkTabKeluarga()" onblur="saveStorage('jum_anak', this.value, 'text')" required>
+                                            @error('jum_anak')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -522,10 +680,20 @@
                                         <div class="mb-3">
                                             <label for="alamat_ortu" class="form-label">Alamat Orang Tua</label>
                                             <textarea class="form-control input-daftar input-tabkeluarga @error('alamat_ortu') is-invalid @enderror" id="alamat_ortu" name="alamat_ortu" rows="4" onkeyup="checkTabKeluarga()" onblur="saveStorage('alamat_ortu', this.value, 'text')" required>{{ old('alamat_ortu') }}</textarea>
+                                            @error('alamat_ortu')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                         <div class="mb-3">
                                             <label for="tlp_ortu" class="form-label">Telepon/HP Orang Tua</label>
                                             <input type="number" class="form-control input-daftar input-tabkeluarga @error('tlp_ortu') is-invalid @enderror" name="tlp_ortu" id="tlp_ortu" value="{{ old('tlp_ortu') }}" onblur="saveStorage('tlp_ortu', this.value, 'text')" onkeyup="checkTabKeluarga()" required>
+                                            @error('tlp_ortu')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="row mt-5">
@@ -554,8 +722,8 @@
                                             <label class="form-label">Pilihan Prodi 1</label>
                                             <select class="form-select input-daftar input-tabprodi @error('prodi1_id') is-invalid @enderror" name="prodi1_id" id="prodi1_id" onchange="eventComboBox(this, 'prodi')" required>
                                                 <option value="">-Pilih Prodi-</option>
-                                                @foreach ($prodi as $pro)
-                                                    <option value="{{ $pro->id }}">{{ $pro->nama }}</option>
+                                                @foreach ($kelas as $kls)
+                                                    <option value="{{ $kls->id }}">{{ $kls->nama }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -563,8 +731,8 @@
                                             <label class="form-label">Pilihan Prodi 2</label>
                                             <select class="form-select input-daftar input-tabprodi @error('prodi2_id') is-invalid @enderror" name="prodi2_id" id="prodi2_id" onchange="eventComboBox(this, 'prodi')" required>
                                                 <option value="">-Pilih Prodi-</option>
-                                                @foreach ($prodi as $pro)
-                                                    <option value="{{ $pro->id }}">{{ $pro->nama }}</option>
+                                                @foreach ($kelas as $kls)
+                                                    <option value="{{ $kls->id }}">{{ $kls->nama }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -600,6 +768,12 @@
                                         <p>
                                             Dari manakah anda mendapatkan informasi Penerimaan Mahasiswa Baru Politeknik Hasnur?
                                         </p>
+
+                                        @error('sumber_info')
+                                            <div class="invalid-feedback d-block">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
     
                                         <div class="row mt-3">
                                             @foreach ($sumber as $sum)

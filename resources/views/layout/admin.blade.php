@@ -9,16 +9,21 @@
 
         <title>Admin PMB Polihasnur</title>
     </head>
-    <body id="body-pd" class="body-pd">
-        <header>
-            @include('admin.template.navbar')
-        </header>
-        @include('admin.template.sidebar')
-        
-        <div class="container-fluid">
-            @yield('header')
-            
-            @yield('content')
+    <body>
+        <div id="app">
+            @include('admin.template.sidebar')
+
+            <div id="main">
+                @include('admin.template.navbar')
+
+                <div class="main-content container-fluid">
+                    @yield('header')
+                
+                    @yield('content')
+    
+                    @include('admin.template.footer')
+                </div>
+            </div>
         </div>
 
         @stack('before-script')

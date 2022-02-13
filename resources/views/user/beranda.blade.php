@@ -19,7 +19,7 @@
                             <li>On The Job Training (OJT) di perusahaan jaringan HG dan perusahaan terkemuka lainnya.</li>
                             <li>Beasiswa dari Yayasan Hasnur Centre (YHC), mitra industri, dan pemerintah.</li>
                         </ul>
-                        <a href="#about" class="btn-app-secondary animate__animated animate__fadeInUp scrollto">Alur Pendaftaran</a>
+                        <a href="{{ route('pendaftaran.index') }}" class="btn-app-secondary animate__animated animate__fadeInUp scrollto">Alur Pendaftaran</a>
                         <a href="{{ $formulir->getPath }}" target="_blank" class="btn-get-started animate__animated animate__fadeInUp scrollto"><i class="bi bi-download"></i> Download Formulir</a>
                     </div>
                     </div>

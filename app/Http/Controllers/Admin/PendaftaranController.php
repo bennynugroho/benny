@@ -38,7 +38,7 @@ class PendaftaranController extends Controller
             $tahun_id = $request->tahun_id;
         }
 
-        $pendaftar = Pendaftar::with(['jalur'])->where('thn_akd_id', $tahun_id)->get();
+        $pendaftar = Pendaftar::with(['jalur'])->where('thn_akd_id', $tahun_id)->orderBy('tgl_daftar', 'desc')->get();
 
         $view = '';
         foreach($pendaftar as $p => $pen){
@@ -51,7 +51,7 @@ class PendaftaranController extends Controller
                     <td>'. $pen->jalur->judul .'</td>
                     <td>'. $pen->slta .'</td>
                     <td>'. $pen->gettanggalDaftar .'</td>
-                    <td>';
+                    <td id="status-pendaftar-'. $pen->id .'">';
                     
             if($pen->status == 1){
                 $view .= '<span class="badge bg-success">Sudah</span>';

@@ -1,7 +1,6 @@
 /* nav pills */
-.nav-pills .nav-link {
+/* .nav-pills .nav-link {
     color: #000;
-    /* font-family: "Poppins", sans-serif; */
     border-radius: 0;
 }
 
@@ -10,6 +9,11 @@
     color: #000;
     border-bottom: 2px solid #3f6ad8;
     font-weight: 600;
+} */
+
+/* table */
+.table>:not(caption)>*>*{
+    padding: 1.15rem 1rem;
 }
 
 /* toggle switch */

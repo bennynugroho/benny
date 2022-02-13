@@ -1,17 +1,69 @@
-<div class="l-navbar show" id="nav-bar">
-    <nav class="nav">
-        <div> <a href="#" class="nav_logo mb-3"> <i class='bx bx-layer nav_logo-icon'></i> <span class="nav_logo-name">ADMIN <br> PMB POLHAS</span> </a>
-            <div class="nav_list"> 
-                <a href="/admin/pendaftar" class="nav_link {{ Request::is('*/pendaftar*') ? 'active' : '' }}"> <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Dashboard</span> </a>
-                <a href="/admin/pesan" class="nav_link {{ Request::is('*/pesan*') ? 'active' : '' }}"> <i class='bx bx-message-square-detail nav_icon'></i> <span class="nav_name">Pesan</span> </a> 
-                <a href="#" class="nav_link"> <i class='bx bx-group nav_icon'></i> <span class="nav_name">Organisasi</span> </a> 
-                <a href="/admin/rekomendasi" class="nav_link {{ Request::is('*/rekomendasi*') ? 'active' : '' }}"> <i class='bx bx-star nav_icon'></i> <span class="nav_name">Rekomendasi</span> </a> 
-                <a href="/admin/prodi" class="nav_link {{ Request::is('*/prodi*') ? 'active' : '' }}"> <i class='bx bx-book-bookmark nav_icon'></i> <span class="nav_name">Prodi</span> </a> 
-                <a href="/admin/kelas" class="nav_link {{ Request::is('*/kelas*') ? 'active' : '' }}"> <i class='bx bx-book-reader nav_icon'></i> <span class="nav_name">Kelas</span> </a> 
-                <a href="/admin/seleksi" class="nav_link pb-1 {{ Request::is('*/seleksi*') ? 'active' : '' }}"> <i class='bx bx-bookmarks nav_icon'></i> <span class="nav_name">Pengumuman <br> Seleksi</span> </a> 
-                <a href="/admin/kontak" class="nav_link {{ Request::is('*/kontak*') ? 'active' : '' }}"> <i class='bx bx-phone nav_icon'></i> <span class="nav_name">Kontak</span> </a> 
-                <a href="/admin/pengaturan" class="nav_link {{ Request::is('*/pengaturan*') ? 'active' : '' }}"> <i class='bx bx-cog nav_icon'></i> <span class="nav_name">Pengaturan</span> </a> 
-            </div>
-        </div> <a href="{{ route('logout') }}" class="nav_link"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
-    </nav>
+<div id="sidebar" class='active'>
+    <div class="sidebar-wrapper active">
+        <div class="sidebar-header px-3">
+            <span class="navbar-brand" style="color: #55BEFF;"><i data-feather="layers"></i> ADMIN PMB POLHAS</span>
+        </div>
+        <div class="sidebar-menu">
+            <ul class="menu">
+
+                <li class='sidebar-title'>Main Menu</li>
+
+                <li class="sidebar-item {{ Request::is('*/pendaftar*') ? 'active' : '' }} ">
+                    <a href="/admin/pendaftar" class='sidebar-link'>
+                        <i data-feather="home" width="20"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="sidebar-item {{ Request::is('*/pesan*') ? 'active' : '' }} ">
+                    <a href="/admin/pesan" class='sidebar-link'>
+                        <i data-feather="mail" width="20"></i>
+                        <span>Pesan</span>
+                    </a>
+                </li>
+                <li class="sidebar-item  ">
+                    <a href="#" class='sidebar-link'>
+                        <i data-feather="users" width="20"></i>
+                        <span>Organisasi</span>
+                    </a>
+                </li>
+                <li class="sidebar-item {{ Request::is('*/rekomendasi*') ? 'active' : '' }} ">
+                    <a href="/admin/rekomendasi" class='sidebar-link'>
+                        <i data-feather="star" width="20"></i>
+                        <span>Rekomendasi</span>
+                    </a>
+                </li>
+                <li class="sidebar-item {{ Request::is('*/prodi*') ? 'active' : '' }} ">
+                    <a href="/admin/prodi" class='sidebar-link'>
+                        <i data-feather="book" width="20"></i>
+                        <span>Prodi</span>
+                    </a>
+                </li>
+                <li class="sidebar-item {{ Request::is('*/kelas*') ? 'active' : '' }} ">
+                    <a href="/admin/kelas" class='sidebar-link'>
+                        <i data-feather="bookmark" width="20"></i>
+                        <span>Kelas</span>
+                    </a>
+                </li>
+                <li class="sidebar-item {{ Request::is('*/seleksi*') ? 'active' : '' }} ">
+                    <a href="/admin/seleksi" class='sidebar-link'>
+                        <i data-feather="clipboard" width="20"></i>
+                        <span>Seleksi</span>
+                    </a>
+                </li>
+                <li class="sidebar-item {{ Request::is('*/kontak*') ? 'active' : '' }} ">
+                    <a href="/admin/kontak" class='sidebar-link'>
+                        <i data-feather="phone" width="20"></i>
+                        <span>Kontak</span>
+                    </a>
+                </li>
+                <li class="sidebar-item {{ Request::is('*/pengaturan*') ? 'active' : '' }} ">
+                    <a href="/admin/pengaturan" class='sidebar-link'>
+                        <i data-feather="settings" width="20"></i>
+                        <span>Pengaturan</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+    </div>
 </div>

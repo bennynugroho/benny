@@ -11,7 +11,7 @@
             </div>
 
             @foreach ($jalur as $jlr)
-                <div class="row mb-5">
+                <div class="row mb-5" id="{{ $jlr->judul }}">
                     <div class="d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
                         <div class="col icon-box">
                             <div class="row">

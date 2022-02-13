@@ -13,19 +13,7 @@
         </script>
     @endif
 
-    <div class="row">
-        {{-- <div class="card my-3">
-            <div class="card-body">
-                <div class="row text-nowrap">
-                    <div class="col-6">
-                        <h3>Data Kurikulum</h3>
-                    </div>
-                    <div class="col-6 text-end">
-                        <button class="btn btn-primary"><i class="bi bi-plus-circle-fill"></i> Tambah</button>
-                    </div>
-                </div>
-            </div>
-        </div> --}}        
+    <div class="row">       
 
         {{-- card prodi --}}
         <div class="col-12">
@@ -33,16 +21,16 @@
                 <div class="card-header">
                     <div class="row text-nowrap align-items-center">
                         <div class="col-6">
-                            <h4 class="mb-0">Data Prodi</h4>
+                            <h3 class="card-title mb-0">Data Prodi</h3>
                         </div>
                         <div class="col-6 text-end">
-                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalProdi"><i class="bi bi-plus-circle-fill"></i> Tambah</button>
+                            <button class="btn btn-primary" onclick="showSlug()" data-bs-toggle="modal" data-bs-target="#modalProdi"><i class="bi bi-plus-circle-fill"></i> Tambah</button>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="table-responsive py-3">
-                        <table id="table-prodi" class="table table-hover table-striped py-3">
+                    <div class="table-responsive">
+                        <table id="tableProdi" class="table table-hover table-striped py-3">
                             <thead>
                                 <tr>
                                     <th>No</th>
@@ -95,7 +83,7 @@
                 <div class="card-header">
                     <div class="row text-nowrap align-items-center">
                         <div class="col-6">
-                            <h4 class="mb-0">Data Kurikulum</h4>
+                            <h3 class="card-title mb-0">Data Kurikulum</h3>
                         </div>
                         <div class="col-6 text-end">
                             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalKurikulum"><i class="bi bi-plus-circle-fill"></i> Tambah</button>
@@ -103,8 +91,8 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="table-responsive py-3">
-                        <table id="table-kurikulum" class="table table-hover table-striped py-3">
+                    <div class="table-responsive">
+                        <table id="tableKurikulum" class="table table-hover table-striped py-3">
                             <thead>
                                 <tr>
                                     <th>No</th>
@@ -122,7 +110,7 @@
                                 @foreach ($kurikulum as $k => $kur)
                                     <tr>
                                         <td class="text-center">{{ $loop->iteration }}</td>
-                                        <td>{{ $kur->prodi }}</td>
+                                        <td>{{ $kur->prodi->nama }}</td>
                                         <td>{{ $kur->semester }}</td>
                                         <td>{{ $kur->kode }}</td>
                                         <td>{{ $kur->mata_kuliah }}</td>
@@ -158,62 +146,16 @@
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="nama-prodi" class="form-label">Nama Program Studi</label>
-                            <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" id="nama-prodi" value="{{ old('nama') }}" placeholder="Masukkan nama program studi">
+                            <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" id="nama-prodi" value="{{ old('nama') }}" onchange="createSlug(this.value)" placeholder="Masukkan nama program studi">
                             @error('nama')
                                 <div class="invalid-feedback d-block">
                                     {{ $message }}
                                 </div>
                             @enderror
                         </div>
-                        <div class="mb-3">
-                            <label for="visi" class="form-label">Visi</label>
-                            <textarea name="visi" id="visi" class="form-control" cols="30" rows="4" oninput="handleInputVisi(event)" placeholder="Masukkan visi program studi">{{ old('visi') }}</textarea>
-                            @error('visi')
-                                <div class="invalid-feedback d-block">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label for="misi" class="form-label">Misi</label>
-                            <textarea name="misi" id="misi" class="form-control" cols="30" rows="4" oninput="handleInputMisi(event)" placeholder="Masukkan misi program studi">{{ old('misi') }}</textarea>
-                            @error('misi')
-                                <div class="invalid-feedback d-block">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Simpan</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!-- end Modal Prodi -->
-
-    <!-- Modal Prodi -->
-    <div class="modal fade" id="modalProdi" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalProdiTitle">Tambah Prodi</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form action="{{ route('prodi.store') }}" id="formModalProdi" method="POST">
-                    <input type="hidden" name="_method" id="method-prodi" value="post">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="nama-prodi" class="form-label">Nama Program Studi</label>
-                            <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" id="nama-prodi" value="{{ old('nama') }}" placeholder="Masukkan nama program studi">
-                            @error('nama')
-                                <div class="invalid-feedback d-block">
-                                    {{ $message }}
-                                </div>
-                            @enderror
+                        <div class="mb-3" id="input-slug">
+                            <label for="slug" class="form-label">Slug</label>
+                            <input type="text" class="form-control disabled" name="slug" id="slug" readonly>
                         </div>
                         <div class="mb-3">
                             <label for="visi" class="form-label">Visi</label>
@@ -259,10 +201,10 @@
                         <div class="row mb-3" id="headerModalKurikulum">
                             <div class="col-md-2 text-nowrap">
                                 <button onclick="tambah()" type="button" data-toggle="tooltip" data-placement="top"
-                                    title="Tambah Baris" class="btn btn-primary"><i class="bi bi-plus-circle"></i>
+                                    title="Tambah Baris" class="btn btn-sm btn-primary"><i class="bi bi-plus-circle"></i>
                                 </button>
                                 <button onclick="hapus()" type="button" data-toggle="tooltip" data-placement="top"
-                                    title="Hapus Baris" class="btn btn-danger"><i class="bi bi-x-circle"></i>
+                                    title="Hapus Baris" class="btn btn-sm btn-danger"><i class="bi bi-x-circle"></i>
                                 </button>
                             </div>
                             <div class="col-md-5" id="cover-prodi">
@@ -333,13 +275,31 @@
     @include('partials.deleteData')
 
     <script>
-        $(document).ready(function() {
-            $('#table-prodi').DataTable();
-            $('#table-kurikulum').DataTable();
-        });
+        let tableProdi = document.querySelector('#tableProdi');
+        let dataTableProdi = new simpleDatatables.DataTable(tableProdi);
 
-        // bullet textarea
-        function textAreaBullet(event){
+        let tableKurikulum = document.querySelector('#tableKurikulum');
+        let dataTableKur = new simpleDatatables.DataTable(tableKurikulum);
+
+        let previousLengthVisi = 0;
+        const handleInputVisi = (event) => {
+            const bullet = "•";
+            const newLength = event.target.value.length;
+            const characterCode = event.target.value.substr(-1).charCodeAt(0);
+
+            if (newLength > previousLengthVisi) {
+                if (characterCode === 10) {
+                event.target.value = `${event.target.value}${bullet} `;
+                } else if (newLength === 1) {
+                event.target.value = `${bullet} ${event.target.value}`;
+                }
+            }
+        
+            previousLengthVisi = newLength;
+        }
+
+        let previousLengthMisi = 0;
+        const handleInputMisi = (event, lengthMisi = previousLengthMisi) => {
             const bullet = "•";
             const newLength = event.target.value.length;
             const characterCode = event.target.value.substr(-1).charCodeAt(0);
@@ -351,18 +311,6 @@
                 event.target.value = `${bullet} ${event.target.value}`;
                 }
             }
-        }
-
-        let previousLengthVisi = 0;
-        const handleInputVisi = (event) => {
-            textAreaBullet(event);
-        
-            previousLengthVisi = newLength;
-        }
-
-        let previousLengthMisi = 0;
-        const handleInputMisi = (event) => {
-            textAreaBullet(event);
         
             previousLengthMisi = newLength;
         }
@@ -373,14 +321,32 @@
                 url: `/admin/prodi/${id}/edit`,
                 type: 'get',
                 success: function(data) {
-                    console.log(data);
                     $('#modalProdiTitle').html(title);
                     $('#formModalProdi').attr('action', url);
                     $('#method-prodi').val('put');
                     $('#nama-prodi').val(data.nama);
                     $('#visi').val(data.visi);
                     $('#misi').val(data.misi);
+                    $('#input-slug').hide();
+
                     $('#modalProdi').modal('show');
+                }
+            });
+        }
+
+        function showSlug(){
+            $('#input-slug').show();
+            $('#nama-prodi').val('');
+            $('#visi').val('');
+            $('#misi').val('');
+        }
+
+        function createSlug(prodi){
+            $.ajax({
+                url: `/admin/createSlug/${prodi}`,
+                type: 'get',
+                success: function(data) {
+                    $(`#slug`).val(data.slug);
                 }
             });
         }

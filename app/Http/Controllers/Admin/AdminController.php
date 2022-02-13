@@ -31,10 +31,10 @@ class AdminController extends Controller
                 <button type="button" style="display: none;" id="btn-hide-pass" onclick="hideFormPass()" class="btn btn-sm btn-danger text-white">Tutup form ganti password</button>
             </div>
             <div class="mb-3" style="display: none;" id="form-pass">
-                <label for="input-password">Password</label>
+                <label class="form-label" for="input-password">Password</label>
                 <div class="input-group">
-                    <input type="password" class="form-control border-end-0" name="password" id="input-password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;">
-                    <span class="input-group-text bg-white border-start-0" id="changeTypePass" onclick="changeTypePass()"><i class="bi bi-eye"></i></span>
+                    <input type="password" class="form-control" name="password" id="input-password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;">
+                    <span class="input-group-text pt-1" id="changeTypePass" onclick="changeTypePass()"><i class="bi bi-eye"></i></span>
                 </div>
             </div>
         ';

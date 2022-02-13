@@ -12,20 +12,20 @@
                         <li><a href="{{ route('pendaftaran.index') }}#biaya">Biaya PMB</a></li>
                         <li><a href="{{ route('pendaftaran.create') }}">Daftar</a></li>
                         <li><a href="{{ $formulir->getPath }}" target="_blank">Download Formulir Pendaftaran</a></li>
-                        <li><a href="#">Pengumuman Seleksi</a></li>
+                        <li><a href="/pengumuman">Pengumuman Seleksi</a></li>
                     </ul>
                 </li>
                 <li class="dropdown"><a href="/jalur-masuk" class="{{ Request::is('*/jalur-masuk*') ? 'active' : '' }}"><span>Jalur Masuk</span> <i class="bi bi-chevron-down"></i></a>
                     <ul>
                         @foreach ($jalur as $jlr)
-                            <li><a href="#">{{ $jlr->judul }}</a></li>
+                            <li><a href="/jalur-masuk#{{ $jlr->judul }}">{{ $jlr->judul }}</a></li>
                         @endforeach
                     </ul>
                 </li>
                 <li class="dropdown"><a href="/prodi" class="{{ Request::is('*/prodi*') ? 'active' : '' }}"><span>Prodi</span> <i class="bi bi-chevron-down"></i></a>
                     <ul>
                         @foreach ($prodi as $pro)
-                            <li><a href="#">{{ $pro->nama }}</a></li>
+                            <li><a href="/prodi/{{ $pro->slug }}">{{ $pro->nama }}</a></li>
                         @endforeach
                     </ul>
                 </li>

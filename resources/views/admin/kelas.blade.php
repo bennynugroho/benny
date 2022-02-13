@@ -4,9 +4,8 @@
     @include('partials.deleteData')
     
     <script>
-        $(document).ready(function() {
-            $('#table-kelas').DataTable();
-        });
+        let tableKelas = document.querySelector('#tableKelas');
+        let dataTable = new simpleDatatables.DataTable(tableKelas);
         
         function showEditKelas(url_edit, url_update, title){
             $.ajax({
@@ -28,22 +27,23 @@
 
 @section('content')
     <div class="row">
+        <div class="page-title">
+            <div class="row text-nowrap">
+                <div class="col-6">
+                    <h3 class="card-title mb-0">Data Kelas</h3>
+                </div>
+                <div class="col-6 text-end">
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalKelas"><i class="bi bi-plus-circle-fill"></i> Tambah</button>
+                </div>
+            </div>
+        </div>
+
         {{-- card kelas --}}
         <div class="col-12">
             <div class="card my-3">
-                <div class="card-header">
-                    <div class="row text-nowrap align-items-center">
-                        <div class="col-6">
-                            <h4 class="mb-0">Data Kelas</h4>
-                        </div>
-                        <div class="col-6 text-end">
-                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalKelas"><i class="bi bi-plus-circle-fill"></i> Tambah</button>
-                        </div>
-                    </div>
-                </div>
                 <div class="card-body">
                     <div class="table-responsive py-3">
-                        <table id="table-kelas" class="table table-hover table-striped py-3">
+                        <table id="tableKelas" class="table table-hover table-striped py-3">
                             <thead>
                                 <tr>
                                     <th>No</th>
@@ -77,7 +77,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 id="titleModalKelas">Tambah Data</h5>
+                    <h5 class="mb-0" id="titleModalKelas">Tambah Data</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form id="formModalKelas" action="{{ route('kelas.store') }}" method="POST">
@@ -89,7 +89,7 @@
                             <input type="text" class="form-control" name="nama" id="nama" placeholder="Masukkan nama kelas" required>
                         </div>
                         <div class="mb-3">
-                            <label for="prodi">Program Studi</label>
+                            <label class="form-label" for="prodi">Program Studi</label>
                             <select class="form-select" id="prodi" name="prodi" required>
                                 <option value="">-Pilih Prodi-</option>
                                 @foreach ($prodi as $pro)

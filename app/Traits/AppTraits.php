@@ -12,7 +12,7 @@ trait AppTraits
             {
                 $data = [
                     'kontak'   => Kontak::all()->first(),
-                    'prodi'    => Prodi::all(),
+                    'prodi'    => Prodi::orderBy('nama', 'asc')->get(),
                     'jalur'    => JalurMasuk::all(),
                     'formulir' => Formulir::all()->first(),
                 ];
