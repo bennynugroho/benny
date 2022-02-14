@@ -53,7 +53,7 @@
                             <h2 class="mb-0">Detail Data Pendaftar</h2>
                         </div>
                         <div class="bd-highlight ms-auto">
-                            <a href="#" class="btn btn-danger"><i class="bi bi-printer-fill"></i> Cetak Formulir</a>
+                            <a href="/admin/cetak-formulir/{{ $pendaftar->id }}" target="_blank" class="btn btn-danger"><i class="bi bi-printer-fill"></i> Cetak Formulir</a>
                         </div>
                     </div>
                 </div>

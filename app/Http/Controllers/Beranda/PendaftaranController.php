@@ -30,6 +30,7 @@ class PendaftaranController extends Controller
             'biaya'      => Biaya::with(['prodi'])->get(),
             'infoDaftar' => InfoPendaftaran::all()->first(),
             'syarat'     => Persyaratan::all(),
+            'page'       => 'pendaftaran',
         ];
 
         $data += $this->primary();
@@ -47,6 +48,7 @@ class PendaftaranController extends Controller
         $data = [
             'sumber' => SumberInfo::all(),
             'kelas'  => Kelas::all(),
+            'page'   => 'pendaftaran',
         ];
 
         $data += $this->primary();

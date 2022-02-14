@@ -19,8 +19,9 @@ class BerandaController extends Controller
     public function index()
     {
         $data = [
-            'syarat' => Persyaratan::all(),
+            'syarat'      => Persyaratan::all(),
             'info_daftar' => InfoPendaftaran::all()->first(),
+            'page'        => 'beranda',
         ];
 
         $data += $this->primary();
@@ -30,7 +31,9 @@ class BerandaController extends Controller
 
     public function jalur_masuk()
     {
-        $data = [];
+        $data = [
+            'page' => 'jalur-masuk',
+        ];
 
         $data += $this->primary();
 
@@ -41,6 +44,7 @@ class BerandaController extends Controller
     {
         $data = [
             'pengumuman' => Seleksi::with(['daftar', 'tahun_akademik'])->get(),
+            'page'       => 'pendaftaran',
         ];
 
         $data += $this->primary();
@@ -50,7 +54,9 @@ class BerandaController extends Controller
 
     public function prodi()
     {
-        $data = [];
+        $data = [
+            'page' => 'prodi',
+        ];
 
         $data += $this->primary();
 
@@ -63,7 +69,8 @@ class BerandaController extends Controller
 
         $data = [
             'detail_prodi' => $detail_prodi,
-            'kurikulum' => Kurikulum::where('prodi_id', $detail_prodi->id)->get(),
+            'kurikulum'    => Kurikulum::where('prodi_id', $detail_prodi->id)->get(),
+            'page'         => 'prodi',
         ];
 
         $data += $this->primary();
@@ -73,7 +80,9 @@ class BerandaController extends Controller
 
     public function contact()
     {
-        $data = [];
+        $data = [
+            'page' => 'hubungi',
+        ];
 
         $data += $this->primary();    
 

@@ -77,7 +77,7 @@ class PendaftaranController extends Controller
                     <td class="text-nowrap">
                         <button class="btn btn-sm btn-danger" onclick="deleteData(`'. route('pendaftar.destroy', ['pendaftar' => $pen->id]) .'`)"><i class="bi bi-x"></i></button>
                         <a href="'. route('pendaftar.show', ['pendaftar' => $pen->id]) .'" class="btn btn-sm btn-primary"><i class="bi bi-person-fill"></i></a>
-                        <button class="btn btn-sm btn-warning text-white"><i class="bi bi-printer-fill"></i></button>
+                        <a href="/admin/cetak-formulir/'. $pen->id .'" target="_blank" class="btn btn-sm btn-warning text-white"><i class="bi bi-printer-fill"></i></a>
                     </td>
                 </tr>
             ';
@@ -253,5 +253,32 @@ class PendaftaranController extends Controller
 
             return 0;
         }
+    }
+
+    public function printFormulir($id)
+    {
+        date_default_timezone_set("Asia/Singapore");
+        include(base_path() . '/vendor/autoload.php');
+        $mpdf = new \Mpdf\Mpdf(['format' => 'A4']);
+
+        $pendaftar = Pendaftar::find($id);
+
+        $mpdf->SetTitle('Cetak Formulir Pendaftaran '. $pendaftar->nama .' ');
+
+        $data = [
+            'description' => '',
+            'tahun_akd' => TahunAkademik::where('status', 1)->first(),
+            'pendaftar' => $pendaftar,
+            'header_image' => public_path() .'/assets/img/picture/Polihasnur.png',
+            'jalur' => JalurMasuk::all(),
+        ];
+
+        // return view('admin.formulir', $data);
+
+        $html = view('admin.formulir', $data);
+
+        $mpdf->WriteHTML($html);
+
+        $mpdf->Output('Formulir Pendaftaran '. $pendaftar->nama .'.pdf', 'I');
     }
 }

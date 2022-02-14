@@ -6,7 +6,6 @@
 
 @push('after-script')
     @include('partials.deleteData')
-    @include('partials.alert')
 
     <script src="{{ asset('assets/vendor/dropify/js/dropify.min.js') }}"></script>
     <script>

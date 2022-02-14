@@ -28,6 +28,7 @@
 
         @stack('before-script')
         @include('admin.includes.scripts')
+        @include('partials.alert')
         @stack('after-script')
 
     </body>

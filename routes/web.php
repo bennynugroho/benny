@@ -60,6 +60,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function (){
     Route::resource('pendaftar', AdminPendaftaranController::class);
     Route::get('/table-pendaftar', [AdminPendaftaranController::class, 'showPendaftarTable']);
     Route::get('/status-pendaftar', [AdminPendaftaranController::class, 'updateStatus']);
+    Route::get('/cetak-formulir/{id}', [AdminPendaftaranController::class, 'printFormulir']);
 
     // Tahun Akademik
     Route::resource('tahun_akd', TahunAkademikController::class);

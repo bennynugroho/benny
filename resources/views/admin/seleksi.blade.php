@@ -137,7 +137,7 @@
 
 @push('after-script')
     @include('partials.deleteData')
-    @include('partials.alert')
+    
     <script src="{{ asset('admin/vendors/choices.js/choices.min.js') }}"></script>
 
     <script>        
