@@ -16,6 +16,7 @@ class CreateKurikulumTable extends Migration
         Schema::create('kurikulum', function (Blueprint $table) {
             $table->integerIncrements('id');
             $table->string('semester');
+            $table->string('kode');
             $table->string('mata_kuliah');
             $table->tinyInteger('sks_teori');
             $table->tinyInteger('sks_praktek');

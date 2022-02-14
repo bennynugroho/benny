@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBiayaTable extends Migration
+class CreateAkunKontakTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,14 @@ class CreateBiayaTable extends Migration
      */
     public function up()
     {
-        Schema::create('biaya', function (Blueprint $table) {
+        Schema::create('akun_kontak', function (Blueprint $table) {
             $table->integerIncrements('id');
-            $table->integer('uang_pangkal')->nullable();
-            $table->integer('spp')->nullable();
-            $table->unsignedInteger('prodi_id');
-
-            $table->foreign('prodi_id')->references('id')->on('prodi');
+            $table->string('facebook');
+            $table->string('twitter');
+            $table->string('instagram');
+            $table->string('youtube');
+            $table->string('email');
+            $table->string('telepon');
         });
     }
 
@@ -30,6 +31,6 @@ class CreateBiayaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('biaya');
+        Schema::dropIfExists('akun_kontak');
     }
 }

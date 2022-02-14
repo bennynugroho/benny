@@ -15,7 +15,8 @@ class CreateInfoDaftarTable extends Migration
     {
         Schema::create('info_daftar', function (Blueprint $table) {
             $table->integerIncrements('id');
-            $table->string('masa_pendaftaran');
+            $table->date('tgl_awal_daftar');
+            $table->date('tgl_akhir_daftar');
             $table->date('terakhir_pembayaran');
             $table->string('bank');
             $table->string('rekening');

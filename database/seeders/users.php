@@ -17,9 +17,10 @@ class users extends Seeder
     {
         DB::table('users')->insert([
             [
-                'nama' => 'mariyam',
-                'email' => 'mariyam@gmail.com',
-                'password' => Hash::make('awasjangandiganti'),
+                'nama'       => 'mariyam',
+                'email'      => 'mariyam@gmail.com',
+                'password'   => Hash::make('awasjangandiganti'),
+                'role'       => 'admin',
                 'created_at' => now(),
                 'updated_at' => now(),
             ]

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBiayaTable extends Migration
+class CreateFormulirTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,9 @@ class CreateBiayaTable extends Migration
      */
     public function up()
     {
-        Schema::create('biaya', function (Blueprint $table) {
+        Schema::create('formulir', function (Blueprint $table) {
             $table->integerIncrements('id');
-            $table->integer('uang_pangkal')->nullable();
-            $table->integer('spp')->nullable();
-            $table->unsignedInteger('prodi_id');
-
-            $table->foreign('prodi_id')->references('id')->on('prodi');
+            $table->string('path')->nullable();
         });
     }
 
@@ -30,6 +26,6 @@ class CreateBiayaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('biaya');
+        Schema::dropIfExists('formulir');
     }
 }
