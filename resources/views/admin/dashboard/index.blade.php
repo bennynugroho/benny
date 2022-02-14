@@ -162,7 +162,7 @@
                             <th>Tahun Akademik</th>
                             <td class="px-3">:</td>
                             <td>
-                                <select name="tahun_akademik" id="tahun_akademik" onchange="changeTahun(this.value)">
+                                <select class="form-select" name="tahun_akademik" id="tahun_akademik" onchange="changeTahun(this.value)">
                                     @foreach ($tahun_akd as $thn)
                                         <option value="{{ $thn->id }}" {{ $thn->status == 1 ? 'selected' : '' }}>{{ $thn->tahun }}</option>
                                     @endforeach

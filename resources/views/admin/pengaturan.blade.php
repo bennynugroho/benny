@@ -489,7 +489,7 @@
         </div>
     </div>
 
-    <div class="row my-3">
+    <div class="row mb-3">
         <div class="col-md-6">
             <div class="card my-3">
                 <div class="card-header">

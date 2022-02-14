@@ -20,7 +20,7 @@ class PesanController extends Controller
     public function index()
     {
         $data = [
-            'pesan' => Pesan::with(['balasan'])->get(),
+            'pesan' => Pesan::with(['balasan'])->orderBy('tgl_pesan', 'desc')->get(),
         ];
 
         return view('admin.pesan', $data);

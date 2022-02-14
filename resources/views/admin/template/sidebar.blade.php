@@ -20,7 +20,7 @@
                         <span>Pesan</span>
                     </a>
                 </li>
-                <li class="sidebar-item  ">
+                {{-- <li class="sidebar-item  ">
                     <a href="#" class='sidebar-link'>
                         <i data-feather="users" width="20"></i>
                         <span>Organisasi</span>
@@ -31,7 +31,7 @@
                         <i data-feather="star" width="20"></i>
                         <span>Rekomendasi</span>
                     </a>
-                </li>
+                </li> --}}
                 <li class="sidebar-item {{ Request::is('*/prodi*') ? 'active' : '' }} ">
                     <a href="/admin/prodi" class='sidebar-link'>
                         <i data-feather="book" width="20"></i>
@@ -47,7 +47,7 @@
                 <li class="sidebar-item {{ Request::is('*/seleksi*') ? 'active' : '' }} ">
                     <a href="/admin/seleksi" class='sidebar-link'>
                         <i data-feather="clipboard" width="20"></i>
-                        <span>Seleksi</span>
+                        <span>Pengumuman Seleksi</span>
                     </a>
                 </li>
                 <li class="sidebar-item {{ Request::is('*/kontak*') ? 'active' : '' }} ">

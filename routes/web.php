@@ -73,6 +73,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function (){
     // Seleksi
     Route::resource('seleksi', SeleksiController::class);
     Route::get('/table-seleksi', [SeleksiController::class, 'showSeleksiTable']);
+    Route::get('/export-seleksi', [SeleksiController::class, 'export_seleksi']);
 
     // pengaturan
     Route::get('/pengaturan', [PengaturanController::class, 'index']);

@@ -1,5 +1,25 @@
 @extends('layout.app')
 
+@push('after-style')
+    <script src="{{ asset('assets/vendor/sweetalert2/sweetalert2.all.min.js') }}"></script>
+@endpush
+
+@push('after-script')
+    <script src="{{ asset('assets/js/jquery-3.6.0.min.js') }}"></script>
+
+    <script>
+        @if (Session::has('success'))
+            $(document).ready(function(){
+                Swal.fire(
+                    'Terkirim',
+                    `{{ session('success') }}`,
+                    'success'
+                );
+            });
+        @endif
+    </script>
+@endpush
+
 @section('main')
     <!-- ======= Contact Section ======= -->
     <section id="contact" class="contact section-bg pt-110">

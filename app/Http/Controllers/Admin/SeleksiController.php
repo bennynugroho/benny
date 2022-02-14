@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\SeleksiExport;
 use App\Http\Controllers\Controller;
 use App\Models\Pendaftar;
 use App\Models\Seleksi;
 use App\Models\TahunAkademik;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SeleksiController extends Controller
 {
@@ -144,5 +146,10 @@ class SeleksiController extends Controller
         $seleksi->delete();
 
         return 'Data berhasil dihapus';
+    }
+
+    public function export_seleksi()
+    {
+        return Excel::download(new SeleksiExport, 'Seleksi.xlsx');
     }
 }

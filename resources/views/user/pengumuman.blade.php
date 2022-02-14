@@ -26,12 +26,14 @@
                                 <th>Asal Sekolah</th>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Ardi</td>
-                                    <td>18630188</td>
-                                    <td>SMA</td>
-                                </tr>
+                                @foreach ($pengumuman as $p)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $p->daftar->nama }}</td>
+                                        <td>{{ $p->nim }}</td>
+                                        <td>{{ $p->daftar->slta }}</td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

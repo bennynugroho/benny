@@ -20,21 +20,28 @@
         <div class="col">
             <div class="card my-3">
                 <div class="card-body">
-                    <form action="{{ route('seleksi.index') }}" method="GET">
-                        <table>
-                            <tbody>
-                                <th>Tahun Akademik</th>
-                                <td class="px-3">:</td>
-                                <td>
-                                    <select name="tahun_akademik" id="tahun_akademik" onchange="this.form.submit(this.val)">
-                                        @foreach ($tahun_akademik as $thn)
-                                            <option {{ $thn->id == $tahun_id ? 'Selected' : '' }} value="{{ $thn->id }}">{{ $thn->tahun }}</option>
-                                        @endforeach
-                                    </select>
-                                </td>
-                            </tbody>
-                        </table>
-                    </form>
+                    <div class="row">
+                        <div class="col-6">
+                            <form action="{{ route('seleksi.index') }}" method="GET">
+                                <table>
+                                    <tbody>
+                                        <th>Tahun Akademik</th>
+                                        <td class="px-3">:</td>
+                                        <td>
+                                            <select class="form-select" name="tahun_akademik" id="tahun_akademik" onchange="this.form.submit(this.val)">
+                                                @foreach ($tahun_akademik as $thn)
+                                                    <option {{ $thn->id == $tahun_id ? 'Selected' : '' }} value="{{ $thn->id }}">{{ $thn->tahun }}</option>
+                                                @endforeach
+                                            </select>
+                                        </td>
+                                    </tbody>
+                                </table>
+                            </form>
+                        </div>
+                        <div class="col-6 text-end">
+                            <a href="/admin/export-seleksi" target="_blank" class="btn btn-warning"><i class="bi bi-file-earmark-excel"></i> Export to Excel</a>
+                        </div>
+                    </div>
                     <div class="table-responsive py-3">
                         <table id="tableSeleksi" class="table table-hover table-striped py-3">
                             <thead>
