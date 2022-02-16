@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateJalurMasukTable extends Migration
+class AddPaidToJalurMasukTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateJalurMasukTable extends Migration
      */
     public function up()
     {
-        Schema::create('jalur_masuk', function (Blueprint $table) {
-            $table->integerIncrements('id');
-            $table->string('judul');
-            $table->text('keterangan');
-            $table->date('tgl_akhir');
+        Schema::table('jalur_masuk', function (Blueprint $table) {
+            $table->string('foto')->after('keterangan');
         });
     }
 
@@ -28,6 +25,8 @@ class CreateJalurMasukTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('jalur_masuk');
+        Schema::table('jalur_masuk', function (Blueprint $table) {
+            $table->dropColumn(['foto']);
+        });
     }
 }

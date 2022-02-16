@@ -17,7 +17,7 @@ class CreateSeleksiTable extends Migration
             $table->integerIncrements('id');
             $table->unsignedInteger('daftar_id');
             $table->unsignedInteger('thn_akd_id');
-            $table->string('nim');
+            $table->string('no_pendaftaran');
             $table->timestamps();
 
             $table->foreign('daftar_id')->references('id')->on('pendaftar');

@@ -15,6 +15,7 @@ class AddPaidToProdiTable extends Migration
     {
         Schema::table('prodi', function (Blueprint $table) {
             $table->string('slug')->after('nama');
+            $table->string('foto')->after('misi');
         });
     }
 
@@ -26,7 +27,7 @@ class AddPaidToProdiTable extends Migration
     public function down()
     {
         Schema::table('prodi', function (Blueprint $table) {
-            $table->dropColumn(['slug']);
+            $table->dropColumn(['slug', 'foto']);
         });
     }
 }

@@ -46,8 +46,8 @@ class CreatePendaftarTable extends Migration
             $table->string('alamat_ortu')->nullable();
             $table->string('tlp_ortu')->nullable();
             $table->unsignedInteger('jalur_id');
-            $table->unsignedInteger('prodi1_id');
-            $table->unsignedInteger('prodi2_id');
+            $table->unsignedInteger('kelas1_id');
+            $table->unsignedInteger('kelas2_id');
             $table->string('sumber_info')->nullable();
             $table->tinyInteger('status')->nullable();
             $table->date('tgl_daftar');
