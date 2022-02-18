@@ -17,14 +17,14 @@ class Pendaftar extends Model
         return $this->belongsTo(JalurMasuk::class, 'jalur_id');
     }
 
-    public function prodi1()
+    public function kelas1()
     {
-        return $this->belongsTo(Prodi::class, 'prodi1_id');
+        return $this->belongsTo(Kelas::class, 'kelas1_id');
     }
 
-    public function prodi2()
+    public function kelas2()
     {
-        return $this->belongsTo(Prodi::class, 'prodi2_id');
+        return $this->belongsTo(Kelas::class, 'kelas2_id');
     }
     
     public function tahun_akd()
@@ -38,6 +38,13 @@ class Pendaftar extends Model
         $result = SumberInfo::whereIn('id', $sumber)->get();
 
         return $result;
+    }
+
+    public function getGetIdSumberInfoAttribute()
+    {
+        $sumber = explode(',', $this->sumber_info);
+
+        return $sumber;
     }
 
     public function getGetFotoAttribute()

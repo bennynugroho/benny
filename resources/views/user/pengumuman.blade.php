@@ -22,7 +22,7 @@
                             <thead>
                                 <th>No.</th>
                                 <th>Nama</th>
-                                <th>NIM</th>
+                                <th>Nomor Pendaftaran</th>
                                 <th>Asal Sekolah</th>
                             </thead>
                             <tbody>
@@ -30,7 +30,7 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $p->daftar->nama }}</td>
-                                        <td>{{ $p->nim }}</td>
+                                        <td>{{ $p->no_pendaftaran }}</td>
                                         <td>{{ $p->daftar->slta }}</td>
                                     </tr>
                                 @endforeach

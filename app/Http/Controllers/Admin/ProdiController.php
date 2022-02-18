@@ -8,6 +8,7 @@ use App\Models\Kurikulum;
 use App\Models\Prodi;
 use Illuminate\Http\Request;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
+use Illuminate\Support\Facades\Storage;
 
 class ProdiController extends Controller
 {
@@ -20,10 +21,9 @@ class ProdiController extends Controller
     {
         $data = [
             'prodi'     => Prodi::all(),
-            'kurikulum' => Kurikulum::with(['prodi'])->get(),
         ];
 
-        return view('admin.prodi', $data);
+        return view('admin.prodi.prodi', $data);
     }
 
     /**
@@ -46,10 +46,16 @@ class ProdiController extends Controller
     {
         $validate = $request->validate([
             'nama' => 'required',
-            'slug' => 'required',
             'visi' => 'required',
             'misi' => 'required',
+            'foto' => 'required|image',
         ]);
+
+        $validate['slug'] = SlugService::createSlug(Prodi::class, 'slug', $request->nama);
+
+        $foto = $request->file('foto');
+        $foto->storeAs('public/prodi', $foto->hashName());
+        $validate['foto'] = $foto->hashName();
 
         $prodi = Prodi::create($validate)->id;
 
@@ -68,7 +74,35 @@ class ProdiController extends Controller
      */
     public function show($id)
     {
-        //
+        $prodi = Prodi::find($id);
+
+        $view = '
+            <p class="mb-0">Visi</p>
+            <ol>
+        ';
+        
+        foreach($prodi->getVisi as $visi){
+            if($visi != ''){
+                $view .= '<li>'. $visi .'</li>';
+            }
+        }
+
+        $view .= '</ol>';
+
+        $view .= '
+            <p class="mb-0">Misi</p>
+            <ol>
+        ';
+        
+        foreach($prodi->getMisi as $misi){
+            if($misi != ''){
+                $view .= '<li>'. $misi .'</li>';
+            }
+        }
+
+        $view .= '</ol>';
+        
+        return $view;
     }
 
     /**
@@ -79,9 +113,11 @@ class ProdiController extends Controller
      */
     public function edit($id)
     {
-        $prodi = Prodi::find($id);
+        $data = [
+            'prodi' => Prodi::find($id),
+        ];
 
-        return response()->json($prodi);
+        return view('admin.prodi.edit', $data);
     }
 
     /**
@@ -99,11 +135,28 @@ class ProdiController extends Controller
             'nama' => 'required',
             'visi' => 'required',
             'misi' => 'required',
+            'foto' => 'image',
         ]);
+
+        if($request->nama != $prodi->nama){
+            $validate['slug'] = SlugService::createSlug(Prodi::class, 'slug', $request->nama);
+        }
+
+        if($request->file('foto')){
+            $foto = $request->file('foto');
+
+            if($prodi->foto){
+                Storage::disk('local')->delete('public/prodi/'. $prodi->foto);
+            }
+
+            $foto->storeAs('public/prodi/', $foto->hashName());
+
+            $validate['foto'] = $foto->hashName();
+        }
 
         $prodi->update($validate);
 
-        return back()->with('success', 'Data berhasil diupdate');
+        return redirect(route('prodi.index'))->with('success', 'Data berhasil diupdate');
     }
 
     /**
@@ -115,6 +168,8 @@ class ProdiController extends Controller
     public function destroy($id)
     {
         $prodi = Prodi::find($id);
+
+        Storage::disk('local')->delete('public/prodi/'. $prodi->foto);
 
         $prodi->biaya->delete();
 

@@ -13,83 +13,21 @@
         </script>
     @endif
 
-    <div class="row">       
-
-        {{-- card prodi --}}
-        <div class="col-12">
-            <div class="card my-3">
-                <div class="card-header">
-                    <div class="row text-nowrap align-items-center">
-                        <div class="col-6">
-                            <h3 class="card-title mb-0">Data Prodi</h3>
-                        </div>
-                        <div class="col-6 text-end">
-                            <button class="btn btn-primary" onclick="showSlug()" data-bs-toggle="modal" data-bs-target="#modalProdi"><i class="bi bi-plus-circle-fill"></i> Tambah</button>
-                        </div>
-                    </div>
+    <div class="row">
+        <div class="page-title">
+            <div class="row">
+                <div class="col-6">
+                    <h3 class="mb-0">Data Kurikulum</h3>
                 </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table id="tableProdi" class="table table-hover table-striped py-3">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Program Studi</th>
-                                    <th>Visi</th>
-                                    <th>Misi</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($prodi as $k => $pro)
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $pro->nama }}</td>
-                                        <td>
-                                            <ul>
-                                                @foreach ($pro->getVisi as $visi)
-                                                    @if ($visi != '')
-                                                        <li>{{ $visi }}</li>
-                                                    @endif
-                                                @endforeach
-                                            </ul>
-                                        </td>
-                                        <td>
-                                            <ul>
-                                                @foreach ($pro->getMisi as $misi)
-                                                    @if ($misi != '')
-                                                        <li>{{ $misi }}</li>
-                                                    @endif
-                                                @endforeach
-                                            </ul>
-                                        </td>
-                                        <td class="text-nowrap">
-                                            <button class="btn btn-danger btn-sm" onclick="deleteData('{{ route('prodi.destroy', ['prodi' => $pro->id]) }}')"><i class="bi bi-x"></i></button>
-                                            <button class="btn btn-success btn-sm" onclick="showEditProdi('{{ $pro->id }}', '{{ route('prodi.update', ['prodi' => $pro->id]) }}', 'Edit Prodi')"><i class="bi bi-pencil-square"></i></button>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                <div class="col-6 text-end">
+                    <button class="btn btn-primary" onclick="showCreateKurikulum('{{ route('kurikulum.store') }}', 'Tambah Kurikulum')"><i class="bi bi-plus-circle-fill"></i> Tambah</button>
                 </div>
             </div>
-        </div>  
-        {{-- end card prodi --}}
+        </div>
 
         {{-- card Kurikulum --}}
         <div class="col-12">
             <div class="card my-3">
-                <div class="card-header">
-                    <div class="row text-nowrap align-items-center">
-                        <div class="col-6">
-                            <h3 class="card-title mb-0">Data Kurikulum</h3>
-                        </div>
-                        <div class="col-6 text-end">
-                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalKurikulum"><i class="bi bi-plus-circle-fill"></i> Tambah</button>
-                        </div>
-                    </div>
-                </div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table id="tableKurikulum" class="table table-hover table-striped py-3">
@@ -119,7 +57,7 @@
                                         <td>{{ $kur->jam }}</td>
                                         <td class="text-nowrap">
                                             <button class="btn btn-danger btn-sm" onclick="deleteData('{{ route('kurikulum.destroy', ['kurikulum' => $kur->id]) }}')"><i class="bi bi-x"></i></button>
-                                            <button class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i></button>
+                                            <button class="btn btn-success btn-sm" onclick="showEditKurikulum({{ $kur->id }}, '{{ route('kurikulum.update', ['kurikulum' => $kur->id]) }}', 'Edit Kurikulum')"><i class="bi bi-pencil-square"></i></button>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -131,60 +69,6 @@
         </div>
         {{-- end card kurikulum --}}
     </div>
-
-    <!-- Modal Prodi -->
-    <div class="modal fade" id="modalProdi" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalProdiTitle">Tambah Prodi</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form action="{{ route('prodi.store') }}" id="formModalProdi" method="POST">
-                    <input type="hidden" name="_method" id="method-prodi" value="post">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="nama-prodi" class="form-label">Nama Program Studi</label>
-                            <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" id="nama-prodi" value="{{ old('nama') }}" onchange="createSlug(this.value)" placeholder="Masukkan nama program studi">
-                            @error('nama')
-                                <div class="invalid-feedback d-block">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                        <div class="mb-3" id="input-slug">
-                            <label for="slug" class="form-label">Slug</label>
-                            <input type="text" class="form-control disabled" name="slug" id="slug" readonly>
-                        </div>
-                        <div class="mb-3">
-                            <label for="visi" class="form-label">Visi</label>
-                            <textarea name="visi" id="visi" class="form-control" cols="30" rows="4" oninput="handleInputVisi(event)" placeholder="Masukkan visi program studi">{{ old('visi') }}</textarea>
-                            @error('visi')
-                                <div class="invalid-feedback d-block">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label for="misi" class="form-label">Misi</label>
-                            <textarea name="misi" id="misi" class="form-control" cols="30" rows="4" oninput="handleInputMisi(event)" placeholder="Masukkan misi program studi">{{ old('misi') }}</textarea>
-                            @error('misi')
-                                <div class="invalid-feedback d-block">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Simpan</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!-- end Modal Prodi -->
 
     {{-- modal kurikulum --}}
     <div class="modal fade" id="modalKurikulum" tabindex="-1" role="dialog">
@@ -243,7 +127,7 @@
                                         <input type="text" class="form-control" name="kode[]" id="kode-kur" class="form-control">
                                     </td>
                                     <td>
-                                        <input type="text" class="form-control" name="matakuliah[]" id="matakuliah" class="form-control">
+                                        <input type="text" class="form-control" name="mata_kuliah[]" id="mata_kuliah" class="form-control">
                                     </td>
                                     <td>
                                         <input type="number" class="form-control" name="sks_teori[]" id="sks_teori" class="form-control">
@@ -275,81 +159,8 @@
     @include('partials.deleteData')
 
     <script>
-        let tableProdi = document.querySelector('#tableProdi');
-        let dataTableProdi = new simpleDatatables.DataTable(tableProdi);
-
         let tableKurikulum = document.querySelector('#tableKurikulum');
         let dataTableKur = new simpleDatatables.DataTable(tableKurikulum);
-
-        let previousLengthVisi = 0;
-        const handleInputVisi = (event) => {
-            const bullet = "•";
-            const newLength = event.target.value.length;
-            const characterCode = event.target.value.substr(-1).charCodeAt(0);
-
-            if (newLength > previousLengthVisi) {
-                if (characterCode === 10) {
-                event.target.value = `${event.target.value}${bullet} `;
-                } else if (newLength === 1) {
-                event.target.value = `${bullet} ${event.target.value}`;
-                }
-            }
-        
-            previousLengthVisi = newLength;
-        }
-
-        let previousLengthMisi = 0;
-        const handleInputMisi = (event, lengthMisi = previousLengthMisi) => {
-            const bullet = "•";
-            const newLength = event.target.value.length;
-            const characterCode = event.target.value.substr(-1).charCodeAt(0);
-
-            if (newLength > previousLengthMisi) {
-                if (characterCode === 10) {
-                event.target.value = `${event.target.value}${bullet} `;
-                } else if (newLength === 1) {
-                event.target.value = `${bullet} ${event.target.value}`;
-                }
-            }
-        
-            previousLengthMisi = newLength;
-        }
-
-        // Prodi
-        function showEditProdi(id, url, title){
-            $.ajax({
-                url: `/admin/prodi/${id}/edit`,
-                type: 'get',
-                success: function(data) {
-                    $('#modalProdiTitle').html(title);
-                    $('#formModalProdi').attr('action', url);
-                    $('#method-prodi').val('put');
-                    $('#nama-prodi').val(data.nama);
-                    $('#visi').val(data.visi);
-                    $('#misi').val(data.misi);
-                    $('#input-slug').hide();
-
-                    $('#modalProdi').modal('show');
-                }
-            });
-        }
-
-        function showSlug(){
-            $('#input-slug').show();
-            $('#nama-prodi').val('');
-            $('#visi').val('');
-            $('#misi').val('');
-        }
-
-        function createSlug(prodi){
-            $.ajax({
-                url: `/admin/createSlug/${prodi}`,
-                type: 'get',
-                success: function(data) {
-                    $(`#slug`).val(data.slug);
-                }
-            });
-        }
 
         // Kurikulum
         function cek_prodi(val) {
@@ -382,7 +193,7 @@
                                 '<input type="text" name="kode[]" class="form-control">'+
                             '</td>'+
                             '<td>'+
-                                '<input type="text" name="matakuliah[]" class="form-control">'+
+                                '<input type="text" name="mata_kuliah[]" class="form-control">'+
                             '</td>'+
                             '<td>'+
                                 '<input type="text" name="sks_teori[]" class="form-control">'+
@@ -408,6 +219,26 @@
             }
         }
 
+        function showCreateKurikulum(url, title){
+            $('#modalKurikulumTitle').html(title);
+            $('#formModalKurikulum').attr('action', url);
+            $('#method-kurikulum').val('post');
+            $('#headerModalKurikulum').show();
+            $('#semester').val('');
+            $('#kode-kur').val('');
+            $('#mata_kuliah').val('');
+            $('#sks_teori').val('');
+            $('#sks_praktek').val('');
+            $('#jam-kur').val('');
+            $('#semester').attr('name', 'semester[]');
+            $('#kode-kur').attr('name', 'kode[]');
+            $('#mata_kuliah').attr('name', 'mata_kuliah[]');
+            $('#sks_teori').attr('name', 'sks_teori[]');
+            $('#sks_praktek').attr('name', 'sks_praktek[]');
+            $('#jam-kur').attr('name', 'jam[]');
+            $('#modalKurikulum').modal('show');
+        }
+
         function showEditKurikulum(id, url, title){
             $.ajax({
                 url: `/admin/kurikulum/${id}/edit`,
@@ -416,13 +247,19 @@
                     $('#modalKurikulumTitle').html(title);
                     $('#formModalKurikulum').attr('action', url);
                     $('#method-kurikulum').val('put');
-                    $('#headerModalKurikulum').remove();
+                    $('#headerModalKurikulum').hide();
                     $('#semester').val(data.semester);
                     $('#kode-kur').val(data.kode);
-                    $('#matakuliah').val(data.mata_kuliah);
+                    $('#mata_kuliah').val(data.mata_kuliah);
                     $('#sks_teori').val(data.sks_teori);
                     $('#sks_praktek').val(data.sks_praktek);
                     $('#jam-kur').val(data.jam);
+                    $('#semester').attr('name', 'semester');
+                    $('#kode-kur').attr('name', 'kode');
+                    $('#mata_kuliah').attr('name', 'mata_kuliah');
+                    $('#sks_teori').attr('name', 'sks_teori');
+                    $('#sks_praktek').attr('name', 'sks_praktek');
+                    $('#jam-kur').attr('name', 'jam');
                     $('#modalKurikulum').modal('show');
                 }
             });

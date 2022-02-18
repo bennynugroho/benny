@@ -14,6 +14,10 @@ class Formulir extends Model
 
     public function getGetPathAttribute()
     {
-        return asset('/storage/formulir/'. $this->path);
+        if($this->path){
+            return asset('/storage/formulir/'. $this->path);
+        }else{
+            return asset('');
+        }
     }
 }

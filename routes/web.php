@@ -23,6 +23,7 @@ use App\Http\Controllers\Admin\PendaftaranController As AdminPendaftaranControll
 // Beranda
 use App\Http\Controllers\Beranda\BerandaController;
 use App\Http\Controllers\Beranda\PendaftaranController As BerandaPendaftaranController;
+use App\Http\Controllers\PrintController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,7 +61,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function (){
     Route::resource('pendaftar', AdminPendaftaranController::class);
     Route::get('/table-pendaftar', [AdminPendaftaranController::class, 'showPendaftarTable']);
     Route::get('/status-pendaftar', [AdminPendaftaranController::class, 'updateStatus']);
-    Route::get('/cetak-formulir/{id}', [AdminPendaftaranController::class, 'printFormulir']);
 
     // Tahun Akademik
     Route::resource('tahun_akd', TahunAkademikController::class);
@@ -91,6 +91,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function (){
     Route::post('/update-formulir', [AdminController::class, 'updateFormulir'])->name('admin.update.formulir');
 });
 
+// Download formulir pendaftaran
+Route::get('/cetak-formulir/{email}', [PrintController::class, 'printFormulir'])->name('download.formulir');
+
 // Beranda
 Route::get('/', [BerandaController::class, 'index']);
 Route::get('/jalur-masuk', [BerandaController::class, 'jalur_masuk']);
@@ -99,5 +102,6 @@ Route::get('/prodi', [BerandaController::class, 'prodi']);
 Route::get('/prodi/{slug}', [BerandaController::class, 'kurikulum']);
 Route::get('/hubungi', [BerandaController::class, 'contact']);
 Route::post('/kirimpesan', [BerandaController::class, 'kirimPesan'])->name('kirim.pesan');
+Route::get('/registration-success/{email}', [BerandaController::class, 'registration_success']);
 
 Route::resource('/pendaftaran', BerandaPendaftaranController::class);

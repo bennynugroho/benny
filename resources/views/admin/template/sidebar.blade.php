@@ -20,6 +20,12 @@
                         <span>Pesan</span>
                     </a>
                 </li>
+                <li class="sidebar-item {{ Request::is('*/jalur-masuk*') ? 'active' : '' }} ">
+                    <a href="{{ route('jalur.index') }}" class='sidebar-link'>
+                        <i data-feather="copy" width="20"></i>
+                        <span>Jalur Masuk</span>
+                    </a>
+                </li>
                 {{-- <li class="sidebar-item  ">
                     <a href="#" class='sidebar-link'>
                         <i data-feather="users" width="20"></i>
@@ -36,6 +42,12 @@
                     <a href="/admin/prodi" class='sidebar-link'>
                         <i data-feather="book" width="20"></i>
                         <span>Prodi</span>
+                    </a>
+                </li>
+                <li class="sidebar-item {{ Request::is('*/kurikulum*') ? 'active' : '' }} ">
+                    <a href="/admin/kurikulum" class='sidebar-link'>
+                        <i data-feather="book-open" width="20"></i>
+                        <span>Kurikulum</span>
                     </a>
                 </li>
                 <li class="sidebar-item {{ Request::is('*/kelas*') ? 'active' : '' }} ">

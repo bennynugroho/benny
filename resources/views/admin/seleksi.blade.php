@@ -49,7 +49,8 @@
                                     <th>No</th>
                                     <th>Tahun Akademik</th>
                                     <th>Nama</th>
-                                    <th>NIM</th>
+                                    <th>Nomor Pendaftaran</th>
+                                    <th>Jalur Masuk</th>
                                     <th>Asal Sekolah</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -60,7 +61,8 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $sel->tahun_akademik->tahun }}</td>
                                     <td>{{ $sel->daftar->nama }}</td>
-                                    <td>{{ $sel->nim }}</td>
+                                    <td>{{ $sel->no_pendaftaran }}</td>
+                                    <td>{{ $sel->daftar->jalur->judul }}</td>
                                     <td>{{ $sel->daftar->slta }}</td>
                                     <td class="text-nowrap">
                                         <button class="btn btn-danger btn-sm" onclick="deleteData('{{ route('seleksi.destroy', ['seleksi' => $sel->id]) }}')"><i class="bi bi-x"></i></button>
@@ -96,8 +98,8 @@
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label for="nim-create" class="form-label">NIM</label>
-                            <input type="text" class="form-control" id="nim-create" name="nim" required>
+                            <label for="no-pendaftaran-create" class="form-label">Nomor Pendaftaran</label>
+                            <input type="text" class="form-control" id="no-pendaftaran-create" name="no_pendaftaran" required>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -128,8 +130,8 @@
                             <input type="text" class="form-control" name="nama_mhs" id="nama_mhs" readonly>
                         </div>
                         <div class="mb-3">
-                            <label for="nim" class="form-label">NIM</label>
-                            <input type="text" class="form-control" id="nim" name="nim" required>
+                            <label for="no_pendaftaran" class="form-label">Nomor Pendaftaran</label>
+                            <input type="text" class="form-control" id="no_pendaftaran" name="no_pendaftaran" required>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -157,31 +159,6 @@
             showSeleksiTable(tahun_id);
         }
 
-        // function showSeleksiTable(tahun_id){
-        //     $.ajax({
-        //         url: '/admin/table-seleksi',
-        //         type: 'get',
-        //         data: {
-        //             'tahun_id': tahun_id,
-        //         },
-        //         success: function(data) {
-        //             $('#tbody-seleksi').html(data);
-        //         }
-        //     });
-        // }
-
-        // function showCreateSeleksi(url_store){
-        //     $('#titleModalSeleksi').html('Tambah Data');
-        //     $('#daftar_id').val('');
-        //     $('#daftar_id').attr('disabled', false);
-        //     $('#nim').val('');
-        //     $('#slta').val('');
-        //     $('#formModalSeleksi').attr('action', url_store);
-        //     $('#methodModalSeleksi').val('post');
-
-        //     $('#modalSeleksi').modal('show');
-        // }
-
         function showEditSeleksi(url_edit, url_update, title){
             $.ajax({
                 url: url_edit,
@@ -191,7 +168,7 @@
                     $('#methodModalSeleksi').val('put');
                     $('#daftar_id').val(data.daftar_id);
                     $('#nama_mhs').val(data.daftar.nama);
-                    $('#nim').val(data.nim);
+                    $('#no-pendaftaran-create').val(data.no_pendaftaran);
                     
                     $('#modalEditSeleksi').modal('show');
                 }

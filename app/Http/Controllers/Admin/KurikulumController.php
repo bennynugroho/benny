@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Kurikulum;
+use App\Models\Prodi;
 use Illuminate\Http\Request;
 
 class KurikulumController extends Controller
@@ -16,7 +17,8 @@ class KurikulumController extends Controller
     public function index()
     {
         $data = [
-            'kurikulum' => Kurikulum::all(),
+            'prodi'     => Prodi::all(),
+            'kurikulum' => Kurikulum::with(['prodi'])->get(),
         ];
 
         return view('admin.kurikulum', $data);
@@ -48,7 +50,7 @@ class KurikulumController extends Controller
                 'prodi_id'    => $pro,
                 'semester'    => $request->semester[$p],
                 'kode'        => $request->kode[$p],
-                'mata_kuliah' => $request->matakuliah[$p],
+                'mata_kuliah' => $request->mata_kuliah[$p],
                 'sks_teori'   => $request->sks_teori[$p],
                 'sks_praktek' => $request->sks_praktek[$p],
                 'jam'         => $request->jam[$p],
@@ -78,7 +80,7 @@ class KurikulumController extends Controller
      */
     public function edit(Kurikulum $kurikulum)
     {
-        //
+        return response()->json($kurikulum);
     }
 
     /**
@@ -90,7 +92,16 @@ class KurikulumController extends Controller
      */
     public function update(Request $request, Kurikulum $kurikulum)
     {
-        //
+        $kurikulum->update([
+            'semester'    => $request->semester,
+            'kode'        => $request->kode,
+            'mata_kuliah' => $request->mata_kuliah,
+            'sks_teori'   => $request->sks_teori,
+            'sks_praktek' => $request->sks_praktek,
+            'jam'         => $request->jam,
+        ]);
+
+        return back()->with('success', 'Kurikulum berhasil diupdate');
     }
 
     /**

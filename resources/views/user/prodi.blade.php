@@ -29,7 +29,7 @@
                             <a href="/prodi/{{ $pro->slug }}">Kurikulum »</a>
                         </div>
                         <div class="col-lg-6 text-end pt-4 pt-lg-0">
-                            <img src="{{ asset('assets/img/picture/default_prodi.jpg') }}" class="img-thumbnail" width="450" alt="">
+                            <img src="{{ $pro->getFoto }}" class="img-thumbnail" width="450" alt="">
                         </div>
                     </div>
                 </div>

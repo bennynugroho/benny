@@ -26,8 +26,8 @@
         <div class="container" data-aos="fade-up">
 
         <div class="section-title">
-            <h2>Contact</h2>
-            <p>Contact Us</p>
+            <h2>Kontak</h2>
+            <p>Kontak Kami</p>
         </div>
 
         <div class="row">

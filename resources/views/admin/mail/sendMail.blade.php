@@ -6,5 +6,5 @@ Terimkasih telah menghubungi Helpdesk Politeknik Hasnur.
 {{ $data['pesan'] }}
 
 Salam hangat,<br>
-Tim {{ config('app.name') }}
+Tim PMB Politeknik Hasnur
 @endcomponent

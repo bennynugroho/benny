@@ -28,7 +28,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6 text-end pt-4 pt-lg-0">
-                    <img src="{{ asset('assets/img/picture/default_prodi.jpg') }}" class="img-thumbnail" width="450" alt="">
+                    <img src="{{ $detail_prodi->getFoto }}" class="img-thumbnail" width="450" alt="">
                 </div>
             </div>
         </div>

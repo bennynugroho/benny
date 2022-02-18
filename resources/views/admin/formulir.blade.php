@@ -102,7 +102,7 @@
     <table class="table" style="background-color: #FFE699;">
         <tr>
             @foreach ($jalur as $jlr)
-                <td style="width: 210px;text-align: center; padding-left: 30px;">
+                <td style="width: 210px; text-align: center; padding-left: 30px;">
                     <input type="checkbox" {{ $pendaftar->jalur_id == $jlr->id ? 'checked=""' : '' }}> {{ $jlr->judul }}
                 </td>
             @endforeach
@@ -316,9 +316,9 @@
                 <td style="vertical-align: baseline;" colspan="2">Program Studi</td>
                 <td class="w-10" style="padding-left: 0px; vertical-align: baseline;">:</td>
                 <td class="w-50" style="vertical-align: baseline;">
-                    Pilihan 1 : {{ $pendaftar->prodi1->nama }}
+                    Pilihan 1 : {{ $pendaftar->kelas1->nama }}
                     <br>
-                    Pilihan 2 : {{ $pendaftar->prodi2->nama }}
+                    Pilihan 2 : {{ $pendaftar->kelas2->nama }}
                 </td>
             </tr>
         </tbody>
@@ -333,8 +333,7 @@
                 <?php date_default_timezone_set("Asia/Makassar"); ?>
                 Barito Kuala, {{ date('d-M-Y') }}
                 <br><br><br><br><br>
-                ______________________________
-                <br>
+                <hr style="margin-bottom: 0px; width: 65%; color: black;">                
                 <p>{{ $pendaftar->nama }}</p>
             </td>
         </tr>
@@ -354,14 +353,15 @@
     </table>
     <table class="table" style="margin-top: 10px;">
         <tr>
-            <td style="padding-left: 25px;">Orang yang merekomendasikan</td>
+            <td style="padding-left: 25px; vertical-align: baseline;">Orang yang merekomendasikan</td>
             <td></td>
-            <td style="width: 50%; padding-left: 25px;">
+            <td style="width: 50%; padding-left: 25px; vertical-align: baseline;">
                 @if ($pendaftar->nama_rekomendasi)
-                    {{ $pendaftar->nama_rekomendasi }}
-                    <br>
+                    <p style="margin-bottom: 0px;">{{ $pendaftar->nama_rekomendasi }}</p>
+                    <hr style="margin-top: 0px; width: 50%; text-align: left; color: black;">
+                @else
+                <hr style="margin-top: 15px; width: 50%; text-align: left; color: black;">
                 @endif
-                _________________________________
             </td>
         </tr>
     </table>

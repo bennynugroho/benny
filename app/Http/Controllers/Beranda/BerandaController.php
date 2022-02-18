@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Beranda;
 use App\Http\Controllers\Controller;
 use App\Models\InfoPendaftaran;
 use App\Models\Kurikulum;
+use App\Models\Pendaftar;
 use App\Models\Persyaratan;
 use App\Models\Pesan;
 use App\Models\Prodi;
 use App\Models\Seleksi;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 use App\Traits\AppTraits;
 
@@ -21,6 +23,8 @@ class BerandaController extends Controller
         $data = [
             'syarat'      => Persyaratan::all(),
             'info_daftar' => InfoPendaftaran::all()->first(),
+            'ormawa'      => Http::get(env('PH_URL') . '/ormawa')->object(),
+            'testimoni'   => Http::get(env('PH_URL') . '/testimoni')->object(),
             'page'        => 'beranda',
         ];
 
@@ -103,5 +107,15 @@ class BerandaController extends Controller
         Pesan::create($validatedData);
 
         return back()->with('success', 'Pesan telah terkirim, terimakasih telah menghubungi kami');
+    }
+
+    public function registration_success($email)
+    {
+        $data = [
+            'pendaftar' => Pendaftar::with(['jalur', 'prodi1', 'prodi2', 'tahun_akd'])->where('email', $email)->first(),
+            'navbar'    => 'regis_success',
+        ];
+
+        return view('user.pendaftaran.sukses', $data);
     }
 }

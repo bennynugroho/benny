@@ -188,29 +188,6 @@
                                 </tr>
                             </thead>
                             <tbody id="tbody-pendaftar">
-                                {{-- <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td>1</td>
-                                    <td>Budi Utomo</td>
-                                    <td>08123456789</td>
-                                    <td>Reguler</td>
-                                    <td>SMK Lestari</td>
-                                    <td>12 Jan 2022</td>
-                                    <td><span class="badge bg-danger">Belum</span></td>
-                                    <td>
-                                        <div class="switch">
-                                            <label>
-                                                <input type="checkbox">
-                                                <span class="lever switch-col-blue"></span>
-                                            </label>
-                                        </div>
-                                    </td>
-                                    <td class="text-nowrap">
-                                        <button class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus"><i class="bi bi-x"></i></button>
-                                        <button class="btn btn-primary"><i class="bi bi-person-fill"></i></button>
-                                        <button class="btn btn-warning text-white"><i class="bi bi-printer-fill"></i></button>
-                                    </td>
-                                </tr> --}}
                             </tbody>
                         </table>
                     </div>

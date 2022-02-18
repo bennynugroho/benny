@@ -53,7 +53,7 @@
                             <h2 class="mb-0">Detail Data Pendaftar</h2>
                         </div>
                         <div class="bd-highlight ms-auto">
-                            <a href="/admin/cetak-formulir/{{ $pendaftar->id }}" target="_blank" class="btn btn-danger"><i class="bi bi-printer-fill"></i> Cetak Formulir</a>
+                            <a href="{{ route('download.formulir', ['email' => $pendaftar->email]) }}" target="_blank" class="btn btn-danger"><i class="bi bi-printer-fill"></i> Cetak Formulir</a>
                         </div>
                     </div>
                 </div>
@@ -131,7 +131,7 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-6 mt-3">
                                         <h5 class="mb-3"><span class="badge bg-success shadow">Data Pendidikan</span></h5>
                                         <table class="table">
                                             <tbody>
@@ -222,7 +222,7 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-6 mt-3">
                                         <h5 class="mb-3"><span class="badge bg-warning shadow">Data Lanjutan</span></h5>
                                         <table class="table">
                                             <tbody>
@@ -234,12 +234,12 @@
                                                 <tr>
                                                     <th>Pilihan Prodi 1</th>
                                                     <td>:</td>
-                                                    <td>{{ $pendaftar->prodi1->nama }}</td>
+                                                    <td>{{ $pendaftar->kelas1->nama }}</td>
                                                 </tr>
                                                 <tr>
                                                     <th>Pilihan Prodi 2</th>
                                                     <td>:</td>
-                                                    <td>{{ $pendaftar->prodi2->nama }}</td>
+                                                    <td>{{ $pendaftar->kelas2->nama }}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -482,9 +482,9 @@
                                                     <th>Pilihan Prodi 1</th>
                                                     <td>:</td>
                                                     <td>
-                                                        <select class="form-select @error('prodi1_id') is-invalid @enderror" name="prodi1_id" id="prodi1_id" required>
-                                                            @foreach ($prodi as $pro)
-                                                                <option {{ $pro->id == $pendaftar->prodi1_id ? 'selected' : '' }} value="{{ $pro->id }}">{{ $pro->nama }}</option>
+                                                        <select class="form-select @error('kelas1_id') is-invalid @enderror" name="kelas1_id" id="kelas1_id" required>
+                                                            @foreach ($kelas as $kls)
+                                                                <option {{ $kls->id == $pendaftar->kelas1_id ? 'selected' : '' }} value="{{ $kls->id }}">{{ $kls->nama }}</option>
                                                             @endforeach
                                                         </select>
                                                     </td>
@@ -493,9 +493,9 @@
                                                     <th>Pilihan Prodi 2</th>
                                                     <td>:</td>
                                                     <td>
-                                                        <select class="form-select @error('prodi2_id') is-invalid @enderror" name="prodi2_id" id="prodi2_id" required>
-                                                            @foreach ($prodi as $pro)
-                                                                <option {{ $pro->id == $pendaftar->prodi2_id ? 'selected' : '' }} value="{{ $pro->id }}">{{ $pro->nama }}</option>
+                                                        <select class="form-select @error('kelas2_id') is-invalid @enderror" name="kelas2_id" id="kelas2_id" required>
+                                                            @foreach ($kelas as $kls)
+                                                                <option {{ $kls->id == $pendaftar->kelas2_id ? 'selected' : '' }} value="{{ $kls->id }}">{{ $kls->nama }}</option>
                                                             @endforeach
                                                         </select>
                                                     </td>
@@ -504,11 +504,18 @@
                                         </table>
             
                                         <h5>Informasi PMB:</h5>
-                                        <ul>
-                                            @foreach ($pendaftar->getSumberInfo as $sumber)
-                                                <li>{{ $sumber->info }}</li>
+                                        <div class="row">
+                                            @foreach ($sumber_info as $si)
+                                                <div class="col-md-4">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="{{ $si->id }}" {{ in_array($si->id, $pendaftar->getIdSumberInfo) ? 'checked' : '' }} name="sumber_info[]" id="sumber-{{ $si->id }}">
+                                                        <label class="form-check-label" for="sumber-{{ $si->id }}">
+                                                            {{ $si->info }}
+                                                        </label>
+                                                    </div>
+                                                </div>
                                             @endforeach
-                                        </ul>
+                                        </div>
                                     </div>
                                 </div>
     

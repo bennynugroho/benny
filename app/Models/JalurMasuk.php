@@ -17,4 +17,9 @@ class JalurMasuk extends Model
     public function getGetTanggalAkhirAttribute(){
         return Carbon::parse($this->tgl_akhir)->locale('id')->isoFormat('D MMMM YYYY');
     }
+
+    public function getGetFotoAttribute()
+    {
+        return asset('storage/jalur/'. $this->foto);
+    }
 }

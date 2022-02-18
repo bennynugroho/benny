@@ -1,5 +1,18 @@
 @extends('layout.app')
 
+@push('after-style')
+    <style>
+        .img-fluid{
+            height: 100%;
+            border-radius: 5px;
+        }
+
+        .icon-box{
+            border-radius: 5px;
+        }
+    </style>
+@endpush
+
 @section('main')
     <!-- ======= Services Section ======= -->
     <section id="services" class="services pt-110">
@@ -21,7 +34,7 @@
                                     <p>Pendaftaran untuk beasiswa ini akan berakhir pada: <strong>{{ $jlr->getTanggalAkhir }}</strong></p>
                                 </div>
                                 <div class="col-lg-4">
-                                    <div class="icon" style="width: 100%; height: 100%;"><img src="{{ asset('assets/img/picture/logo_polihasnur.png') }}" height="150px" alt=""></div>
+                                    <div class="icon" style="width: 100%; height: 100%;"><img src="{{ $jlr->getFoto }}" class="img-fluid" alt=""></div>
                                 </div>
                             </div>
                         </div>

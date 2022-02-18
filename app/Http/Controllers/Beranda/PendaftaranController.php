@@ -12,6 +12,7 @@ use App\Models\SumberInfo;
 use App\Models\TahunAkademik;
 use Illuminate\Http\Request;
 use App\Traits\AppTraits;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 
 class PendaftaranController extends Controller
@@ -45,6 +46,9 @@ class PendaftaranController extends Controller
      */
     public function create()
     {
+        // $organisasi = Http::get(env('PH_URL') . '/polihasnur/ormawa')->object();
+
+        // dd($organisasi);
         $data = [
             'sumber' => SumberInfo::all(),
             'kelas'  => Kelas::all(),
@@ -96,8 +100,8 @@ class PendaftaranController extends Controller
             'alamat_ortu'      => 'required',
             'tlp_ortu'         => 'required',
             'jalur_id'         => 'required',
-            'prodi1_id'        => 'required',
-            'prodi2_id'        => 'required',
+            'kelas1_id'        => 'required',
+            'kelas2_id'        => 'required',
             'nama_rekomendasi' => '',
             'tlp_rekomendasi'  => '',
             'sumber_info'      => 'required',
@@ -116,10 +120,10 @@ class PendaftaranController extends Controller
         $validatedData['tgl_daftar'] = today();
         $validatedData['thn_akd_id'] = $tahun->id;
 
-        Pendaftar::create($validatedData);
+        $pendaftar = Pendaftar::create($validatedData);
 
-        // return redirect('/')->with('success', 'Pendaftaran berhasil dikirimkan');
-        return back()->with('success', 'Pendaftaran berhasil dikirimkan');
+        return back()->with('success', '/registration-success/'. $pendaftar->email);
+        // return redirect('/registration-success/'. $pendaftar->email)->with('success', 'Pendaftaran berhasil dikirimkan');
     }
 
     /**

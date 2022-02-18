@@ -90,7 +90,10 @@ class BiayaController extends Controller
             'spp'          => $request->spp,
         ]);
 
-        return back()->with('success', 'Biaya kuliah berhasil diupdate');
+        return back()->with([
+            'success' => 'Biaya kuliah berhasil diupdate',
+            'tab'     => 'biaya',
+        ]);
     }
 
     /**

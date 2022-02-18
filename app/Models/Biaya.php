@@ -19,11 +19,11 @@ class Biaya extends Model
     
     public function getGetUangPangkalAttribute()
     {
-        return 'Rp'. number_format($this->uang_pangkal, 2, ',', '.');
+        return 'Rp '. number_format($this->uang_pangkal, 2, ',', '.');
     }
     
     public function getGetSppAttribute()
     {
-        return 'Rp'. number_format($this->spp, 2, ',', '.');
+        return 'Rp '. number_format($this->spp, 2, ',', '.');
     }
 }

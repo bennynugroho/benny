@@ -17,7 +17,22 @@ class SumberInfoController extends Controller
     {
         $sumber = SumberInfo::all();
 
-        return response()->json($sumber);
+        $view = '';
+
+        foreach($sumber as $s => $sum){
+            $view .= '
+                <tr>
+                    <td>'. ($s+1) .'</td>
+                    <td>'. $sum->info .'</td>
+                    <td class="text-nowrap">
+                        <button class="btn btn-danger btn-sm" onclick="deleteData(`'. route("sumber_info.destroy", ["sumber_info" => $sum->id]) .'`)"><i class="bi bi-trash"></i></button>
+                        <button class="btn btn-success btn-sm" onclick="showEditSumber("'. $sum->id .'", "Ubah Sumber Informasi")"><i class="bi bi-pencil-square"></i></button>
+                    </td>
+                </tr>
+            ';
+        }
+
+        return $view;
     }
 
     /**
@@ -42,7 +57,10 @@ class SumberInfoController extends Controller
             'info' => $request->sumber_info,
         ]);
 
-        return back()->with('success', 'Sumber informasi berhasil ditambahkan');
+        return back()->with([
+            'success' => 'Sumber informasi berhasil ditambahkan',
+            'tab'     => 'formulir',
+        ]);
     }
 
     /**
@@ -102,6 +120,10 @@ class SumberInfoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $sumber = SumberInfo::find($id);
+
+        $sumber->delete();
+
+        return 'Sumber Informasi berhasil dihapus';
     }
 }

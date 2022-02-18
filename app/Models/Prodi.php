@@ -30,6 +30,11 @@ class Prodi extends Model
 
         return $misi;
     }
+    
+    public function getGetFotoAttribute()
+    {
+        return asset('storage/prodi/'. $this->foto);
+    }
 
     public function sluggable(): array
     {

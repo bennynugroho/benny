@@ -226,36 +226,6 @@
             });
         }
 
-        // Jalur Masuk
-        function showCreateJalur(url, title){
-            $.ajax({
-                url: `{{ route('jalur.create') }}`,
-                type: 'get',
-                success: function(data) {
-                    $('#titleModalNormal').html(title);
-                    $('#formModalNormal').attr('action', url);
-                    $('#bodyModalNormal').html(data);
-                    
-                    $('#modalNormal').modal('show');
-                }
-            });
-        }
-
-        function showEditJalur(url_edit, url_update, title){
-            $.ajax({
-                url: url_edit,
-                type: 'get',
-                success: function(data) {
-                    $('#titleModalNormal').html(title);
-                    $('#formModalNormal').attr('action', url_update);
-                    $('#method-normal').val('put');
-                    $('#bodyModalNormal').html(data);
-                    
-                    $('#modalNormal').modal('show');
-                }
-            });
-        }
-
         // Biaya Kuliah
         function showEditBiaya(url_edit, url_update, title){
             $.ajax({
@@ -273,9 +243,8 @@
         }
 
         // Formulir Pendaftaran
-        function showEditFormulir(url, file){
+        function showEditFormulir(url){
             $('#formModalFormulir').prop('action', url);
-            $('#input-formulir').attr('data-default-file', file);
 
             $('#modalFormulir').modal('show');
         }
@@ -286,19 +255,7 @@
                 url: '/admin/sumber_info',
                 type: 'get',
                 success: function(data) {
-                    let view;
-
-                    for (let i = 0; i < data.length; i++) {
-                        view += `<tr>
-                                    <td>${i+1}</td>
-                                    <td>${data[i].info}</td>
-                                    <td class="text-nowrap">
-                                        <button class="btn btn-success btn-sm" onclick="showEditSumber('${data[i].id}', 'Ubah Sumber Informasi')"><i class="bi bi-pencil-square"></i></button>
-                                    </td>
-                                </tr>`;
-                    }
-
-                    $('#bodyTableSumber').html(view);
+                    $('#bodyTableSumber').html(data);
                 }
             });
         }
@@ -331,56 +288,42 @@
                 <div class="card-body">
                     <ul class="nav nav-tabs" id="pills-tab" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="pills-daftar-tab" data-bs-toggle="pill" data-bs-target="#pills-daftar" type="button" role="tab" aria-controls="pills-daftar" aria-selected="true">Jalur Masuk</button>
+                            <button class="nav-link active" id="pills-biaya-tab" data-bs-toggle="pill" data-bs-target="#pills-biaya" type="button" role="tab" aria-controls="pills-biaya" aria-selected="true">Biaya Kuliah</button>
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="pills-syarat-tab" data-bs-toggle="pill" data-bs-target="#pills-syarat" type="button" role="tab" aria-controls="pills-syarat" aria-selected="false">Pendaftaran</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="pills-biaya-tab" data-bs-toggle="pill" data-bs-target="#pills-biaya" type="button" role="tab" aria-controls="pills-biaya" aria-selected="false">Biaya Kuliah</button>
+                            <button class="nav-link" id="pills-formulir-tab" data-bs-toggle="pill" data-bs-target="#pills-formulir" type="button" role="tab" aria-controls="pills-formulir" aria-selected="false">Formulir</button>
                         </li>
                     </ul>
                     <div class="tab-content mt-4" id="pills-tabContent">
-                        <div class="tab-pane fade show active" id="pills-daftar" role="tabpanel" aria-labelledby="pills-daftar-tab">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="d-flex">
-                                        <div class="bd-highlight me-auto">
-                                            <h5>Pembiayaan :</h5>
-                                        </div>
-                                        <div class="bd-highlight">
-                                            <button class="btn btn-primary" onclick="showCreateJalur('{{ route('jalur.store') }}', 'Tambah Jalur Masuk')"><i class="bi bi-plus-circle-fill"></i> Tambah</button>
-                                        </div>
-                                    </div>
-
-                                    <div class="table-responsive">
-                                        <table class="table table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>No</th>
-                                                    <th>Nama</th>
-                                                    <th>Tanggal Berakhir</th>
-                                                    <th>Keterangan</th>
-                                                    <th>Aksi</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($jalur as $jlr)
-                                                    <tr>
-                                                        <td>{{ $loop->iteration }}</td>
-                                                        <td>{{ $jlr->judul }}</td>
-                                                        <td>{{ $jlr->getTanggalAkhir }}</td>
-                                                        <td>{{ $jlr->keterangan }}</td>
-                                                        <td class="text-nowrap">
-                                                            <button class="btn btn-danger btn-sm" onclick="deleteData('{{ route('jalur.destroy', ['jalur' => $jlr->id]) }}')"><i class="bi bi-x"></i></button>
-                                                            <button class="btn btn-success btn-sm" onclick="showEditJalur('{{ route('jalur.edit', ['jalur' => $jlr->id]) }}', '{{ route('jalur.update', ['jalur' => $jlr->id]) }}', 'Ubah Jalur Masuk')"><i class="bi bi-pencil-square"></i></button>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
+                        <div class="tab-pane fade show active" id="pills-biaya" role="tabpanel" aria-labelledby="pills-biaya-tab">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Program Studi</th>
+                                            <th>Uang Pangkal</th>
+                                            <th>SPP</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($biaya as $b)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $b->prodi->nama }}</td>
+                                                <td>{{ $b->getUangPangkal }}</td>
+                                                <td>{{ $b->getSpp }}</td>
+                                                <td class="text-nowrap">
+                                                    <button class="btn btn-success btn-sm" onclick="showEditBiaya('{{ route('biaya.edit', ['biaya' => $b->id]) }}', '{{ route('biaya.update', ['biaya' => $b->id]) }}', 'Ubah Biaya Kuliah')"><i class="bi bi-pencil-square"></i></button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="pills-syarat" role="tabpanel" aria-labelledby="pills-syarat-tab">
@@ -455,32 +398,57 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="pills-biaya" role="tabpanel" aria-labelledby="pills-biaya-tab">
-                            <div class="table-responsive">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Program Studi</th>
-                                            <th>Uang Pangkal</th>
-                                            <th>SPP</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($biaya as $b)
-                                            <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $b->prodi->nama }}</td>
-                                                <td>{{ $b->getUangPangkal }}</td>
-                                                <td>{{ $b->getSpp }}</td>
-                                                <td class="text-nowrap">
-                                                    <button class="btn btn-success btn-sm" onclick="showEditBiaya('{{ route('biaya.edit', ['biaya' => $b->id]) }}', '{{ route('biaya.update', ['biaya' => $b->id]) }}', 'Ubah Biaya Kuliah')"><i class="bi bi-pencil-square"></i></button>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                        <div class="tab-pane fade" id="pills-formulir" role="tabpanel" aria-labelledby="pills-formulir-tab">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="d-flex align-items-center mb-5">
+                                        <div class="bd-highlight me-auto">
+                                            <h5 class="pt-2">Formulir Pendaftaran</h5>
+                                        </div>
+                                    </div>
+                                    <iframe src="{{ $formulir->getPath }}" class="w-100" height="500px" frameborder="0"></iframe>
+                
+                                    <div class="text-end mt-3">
+                                        <button class="btn btn-success" onclick="showEditFormulir('{{ route('admin.update.formulir', ['id' => $formulir->id]) }}')"><i class="bi bi-pencil-square"></i> Ubah</button>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <div class="bd-highlight me-auto">
+                                            <h5 class="mb-0">Sumber Informasi Pendaftaran</h5>
+                                        </div>
+                                        <div class="bd-highlight">
+                                            <button class="btn btn-primary" onclick="showCreateSumber()"><i class="bi bi-plus-circle-fill"></i> Tambah</button>
+                                        </div>
+                                    </div>
+                                    <div id="createFormSumber" class="mb-3">
+                                        <form action="{{ route('sumber_info.store') }}" method="POST">
+                                            @csrf
+                                            <div class="row align-items-center">
+                                                <div class="col-10">
+                                                    <input type="text" class="form-control" name="sumber_info" placeholder="Masukkan Sumber Informasi">
+                                                </div>
+                                                <div class="col-2 text-end">
+                                                    <button type="submit" class="btn btn-primary"><i class="bi bi-send-plus"></i></button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>No</th>
+                                                    <th>Sumber</th>
+                                                    <th>Aksi</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="bodyTableSumber">
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -573,70 +541,6 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-md-6">
-            <div class="card mb-3">
-                <div class="card-header">
-                    <div class="d-flex align-items-center">
-                        <div class="bd-highlight me-auto">
-                            <h5 class="mb-0"><i class="bi bi-file-earmark-text"></i> Formulir Pendaftaran</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <iframe src="{{ $formulir->getPath }}" class="w-100" height="400px" frameborder="0"></iframe>
-
-                    <div class="text-end mt-3">
-                        <button class="btn btn-success" onclick="showEditFormulir('{{ route('admin.update.formulir', ['id' => $formulir->id]) }}', '{{ $formulir->getpath }}')"><i class="bi bi-pencil-square"></i> Ubah</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="card mb-3">
-                <div class="card-header">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="bd-highlight me-auto">
-                            <h5 class="mb-0"><i class="bi bi-info-square"></i> Sumber Informasi Pendaftaran</h5>
-                        </div>
-                        <div class="bd-highlight">
-                            <button class="btn btn-primary" onclick="showCreateSumber()"><i class="bi bi-plus-circle-fill"></i> Tambah</button>
-                        </div>
-                    </div>
-                    <div id="createFormSumber" class="mb-3">
-                        <form action="{{ route('sumber_info.store') }}" method="POST">
-                            @csrf
-                            <div class="row align-items-center">
-                                <div class="col-10">
-                                    <input type="text" class="form-control" name="sumber_info" placeholder="Masukkan Sumber Informasi">
-                                </div>
-                                <div class="col-2 text-end">
-                                    <button type="submit" class="btn btn-primary"><i class="bi bi-send-plus"></i></button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Sumber</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody id="bodyTableSumber">
-                                
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     {{-- modal small --}}
     <div class="modal fade" id="modalSmall" tabindex="-1" aria-labelledby="modalSmall" aria-hidden="true">
         <div class="modal-dialog modal-sm">
@@ -698,7 +602,7 @@
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="input-formulir" class="form-label">Formulir Pendaftaran</label>
-                            <input type="file" class="dropify" name="formulir" id="input-formulir" data-default-file="" data-height="300" />
+                            <input type="file" class="dropify" name="formulir" id="input-formulir" data-default-file="{{ $formulir->getPath }}" data-height="300" />
                         </div>
                     </div>
                     <div class="modal-footer">

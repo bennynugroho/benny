@@ -91,7 +91,7 @@ class PersyaratanController extends Controller
             'syarat' => $request->syarat,
         ]);
 
-        return back()->with('success', 'Syarat berhasil diupdate');
+        return back()->with('success', 'Syarat berhasil diupdate',);
     }
 
     /**

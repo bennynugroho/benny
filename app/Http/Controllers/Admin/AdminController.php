@@ -127,7 +127,10 @@ class AdminController extends Controller
             'path' => $file->getClientOriginalName(),
         ]);
 
-        return back()->with('success', 'Data berhasil diupdate');
+        return back()->with([
+            'success' => 'Data berhasil diupdate',
+            'tab' => 'formulir',
+        ]);
     }
     // Akhir Formulir Pendaftaran
 }

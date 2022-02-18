@@ -1,3 +1,4 @@
+@if (!isset($navbar))
 <footer id="footer">
     <div class="footer-top">
         <div class="container">
@@ -29,7 +30,7 @@
 
     <div class="container">
         <div class="copyright">
-            &copy; Copyright <strong><span>Politeknik Hasnur</span></strong>. All Rights Reserved
+            Copyright &copy; 2022 <strong><span>Politeknik Hasnur</span></strong>. All Rights Reserved
         </div>
         <div class="credits">
             <!-- All the links in the footer should remain intact. -->
@@ -40,3 +41,4 @@
         </div>
     </div>
 </footer>
+@endif

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\JalurMasuk;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class JalurMasukController extends Controller
 {
@@ -15,7 +16,11 @@ class JalurMasukController extends Controller
      */
     public function index()
     {
-        //
+        $data = [
+            'jalur' => JalurMasuk::all(),
+        ];
+
+        return view('admin.jalur.jalur_masuk', $data);
     }
 
     /**
@@ -51,10 +56,14 @@ class JalurMasukController extends Controller
      */
     public function store(Request $request)
     {
+        $foto = $request->file('foto');
+        $foto->storeAs('public/jalur/', $foto->hashName());
+
         JalurMasuk::create([
             'judul'      => $request->judul,
             'keterangan' => $request->keterangan,
             'tgl_akhir'  => $request->tgl_akhir,
+            'foto'       => $foto->hashName(),
         ]);
 
         return back()->with('success', 'Jalur masuk berhasil ditambahkan');
@@ -79,24 +88,11 @@ class JalurMasukController extends Controller
      */
     public function edit($id)
     {
-        $jalur = JalurMasuk::find($id);
+        $data = [
+            'jalur' => JalurMasuk::find($id),
+        ];
 
-        $view = '
-            <div class="mb-3">
-                <label for="judul" class="form-label">Nama</label>
-                <input type="text" class="form-control" name="judul" id="judul" value="'. $jalur->judul .'" placeholder="Masukkan nama jalur masuk" required>
-            </div>
-            <div class="mb-3">
-                <label for="tgl_akhir" class="form-label">Tanggal Berakhir</label>
-                <input type="date" class="form-control" name="tgl_akhir" id="tgl_akhir" value="'. $jalur->tgl_akhir .'" placeholder="Masukkan tanggal" required>
-            </div>
-            <div class="mb-3">
-                <label for="keterangan" class="form-label">Keterangan</label>
-                <textarea class="form-control" name="keterangan" id="keterangan" rows="3" placeholder="Masukkan keterangan jalur masuk" required>'. $jalur->keterangan .'</textarea>
-            </div>
-        ';
-
-        return $view;
+        return view('admin.jalur.edit', $data);
     }
 
     /**
@@ -110,13 +106,28 @@ class JalurMasukController extends Controller
     {
         $jalur = JalurMasuk::find($id);
 
-        $jalur->update([
-            'judul'      => $request->judul,
-            'keterangan' => $request->keterangan,
-            'tgl_akhir'  => $request->tgl_akhir,
+        $validate = $request->validate([
+            'judul'      => 'required',
+            'keterangan' => 'required',
+            'tgl_akhir'  => 'required|date',
+            'foto'       => 'image',
         ]);
 
-        return back()->with('success', 'Jalur masuk berhasil ditambahkan');
+        if($request->file('foto')){
+            $foto = $request->file('foto');
+
+            if($jalur->foto){
+                Storage::disk('local')->delete('public/jalur/'. $jalur->foto);
+            }
+
+            $foto->storeAs('public/jalur/', $foto->hashName());
+
+            $validate['foto'] = $foto->hashName();
+        }
+
+        $jalur->update($validate);
+
+        return redirect(route('jalur.index'))->with('success', 'Jalur masuk berhasil diupdate');
     }
 
     /**
@@ -128,6 +139,8 @@ class JalurMasukController extends Controller
     public function destroy($id)
     {
         $jalur = JalurMasuk::find($id);
+
+        Storage::disk('local')->delete('public/jalur/'. $jalur->foto);
 
         $jalur->delete();
 
