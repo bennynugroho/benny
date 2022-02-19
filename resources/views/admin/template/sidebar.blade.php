@@ -20,7 +20,7 @@
                         <span>Pesan</span>
                     </a>
                 </li>
-                <li class="sidebar-item {{ Request::is('*/jalur-masuk*') ? 'active' : '' }} ">
+                <li class="sidebar-item {{ Request::is('*/jalur*') ? 'active' : '' }} ">
                     <a href="{{ route('jalur.index') }}" class='sidebar-link'>
                         <i data-feather="copy" width="20"></i>
                         <span>Jalur Masuk</span>

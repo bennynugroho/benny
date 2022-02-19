@@ -125,6 +125,7 @@
     -webkit-transition: all .2s ease-out;
     -webkit-transition: all .2s ease-in-out;
     transition: all .2s ease-in-out;
+    display: none;
 }
 
 .chat_msg_item p{
@@ -186,6 +187,7 @@
     opacity: 1;
     -webkit-animation: zoomIn .2s cubic-bezier(.42, 0, .58, 1);
     animation: zoomIn .2s cubic-bezier(.42, 0, .58, 1);
+    display: inline;
 }
 
 .fabs .is-hide {
@@ -256,8 +258,8 @@
 
 .chat_login p,
 .chat_body li,
-p,
-a {
+.fabs p,
+.fabs a {
     -webkit-animation: zoomIn .5s cubic-bezier(.42, 0, .58, 1);
     animation: zoomIn .5s cubic-bezier(.42, 0, .58, 1);
 }

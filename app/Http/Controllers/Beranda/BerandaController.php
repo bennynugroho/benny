@@ -112,7 +112,7 @@ class BerandaController extends Controller
     public function registration_success($email)
     {
         $data = [
-            'pendaftar' => Pendaftar::with(['jalur', 'prodi1', 'prodi2', 'tahun_akd'])->where('email', $email)->first(),
+            'pendaftar' => Pendaftar::with(['jalur', 'kelas1', 'kelas2', 'tahun_akd'])->where('email', $email)->first(),
             'navbar'    => 'regis_success',
         ];
 

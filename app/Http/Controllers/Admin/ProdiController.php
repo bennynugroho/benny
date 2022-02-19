@@ -83,7 +83,7 @@ class ProdiController extends Controller
         
         foreach($prodi->getVisi as $visi){
             if($visi != ''){
-                $view .= '<li>'. $visi .'</li>';
+                $view .= '<li>'. trim($visi, '\r\n') .'</li>';
             }
         }
 
@@ -96,7 +96,7 @@ class ProdiController extends Controller
         
         foreach($prodi->getMisi as $misi){
             if($misi != ''){
-                $view .= '<li>'. $misi .'</li>';
+                $view .= '<li>'. trim($misi, '\r\n') .'</li>';
             }
         }
 
