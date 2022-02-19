@@ -68,6 +68,12 @@
                         <span>Kontak</span>
                     </a>
                 </li>
+                <li class="sidebar-item {{ Request::is('*/chat*') ? 'active' : '' }} ">
+                    <a href="{{ route('chat.index') }}" class='sidebar-link'>
+                        <i data-feather="message-circle" width="20"></i>
+                        <span>Chat Bot</span>
+                    </a>
+                </li>
                 <li class="sidebar-item {{ Request::is('*/pengaturan*') ? 'active' : '' }} ">
                     <a href="/admin/pengaturan" class='sidebar-link'>
                         <i data-feather="settings" width="20"></i>

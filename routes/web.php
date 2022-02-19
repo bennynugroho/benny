@@ -19,9 +19,11 @@ use App\Http\Controllers\Admin\ProdiController;
 use App\Http\Controllers\Admin\SumberInfoController;
 use App\Http\Controllers\Admin\TahunAkademikController;
 use App\Http\Controllers\Admin\PendaftaranController As AdminPendaftaranController;
+use App\Http\Controllers\Admin\ChatBotController As AdminChatBotController;
 
 // Beranda
 use App\Http\Controllers\Beranda\BerandaController;
+use App\Http\Controllers\Beranda\ChatBotController As BerandaChatBotController;
 use App\Http\Controllers\Beranda\PendaftaranController As BerandaPendaftaranController;
 use App\Http\Controllers\PrintController;
 
@@ -56,6 +58,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function (){
     Route::resource('biaya', BiayaController::class);
     Route::resource('kelas', KelasController::class);
     Route::resource('sumber_info', SumberInfoController::class);
+    Route::resource('chat', AdminChatBotController::class);
     
     // Pendaftar
     Route::resource('pendaftar', AdminPendaftaranController::class);
@@ -103,5 +106,6 @@ Route::get('/prodi/{slug}', [BerandaController::class, 'kurikulum']);
 Route::get('/hubungi', [BerandaController::class, 'contact']);
 Route::post('/kirimpesan', [BerandaController::class, 'kirimPesan'])->name('kirim.pesan');
 Route::get('/registration-success/{email}', [BerandaController::class, 'registration_success']);
+Route::get('/answer-chat/{id}', [BerandaChatBotController::class, 'getAnswer']);
 
 Route::resource('/pendaftaran', BerandaPendaftaranController::class);

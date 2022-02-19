@@ -9,3 +9,9 @@
 
 <!-- Template Main JS File -->
 <script src="{{ asset('assets/js/main.js') }}"></script>
+
+{{-- jquery --}}
+<script src="{{ asset('assets/js/jquery-3.6.0.min.js') }}"></script>
+
+{{-- chat js --}}
+<script src="{{ asset('js/chat.js') }}"></script>
