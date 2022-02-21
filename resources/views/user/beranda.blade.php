@@ -22,6 +22,10 @@
         .carousel-control-next{
             z-index: 6;
         }
+
+        .testimonial-img{
+            background-color: #dee3ee;
+        }
     </style>
 @endpush
 
@@ -34,7 +38,7 @@
         <div class="carousel-inner" role="listbox">
 
             <!-- Slide 1 -->
-            <div class="carousel-item active" style="background-image: url({{ asset('assets/img/slide/slide-1.jpg') }})">
+            <div class="carousel-item active" style="background-image: url({{ asset('assets/img/picture/polhas.jpg') }})">
                 <div class="carousel-container">
                     <div class="container">
                         
@@ -43,13 +47,7 @@
             </div>
 
             <!-- Slide 2 -->
-            <div class="carousel-item" style="background-image: url({{ asset('assets/img/slide/slide-2.jpg') }})">
-                <div class="carousel-container">
-                </div>
-            </div>
-
-            <!-- Slide 3 -->
-            <div class="carousel-item" style="background-image: url({{ asset('assets/img/slide/slide-3.jpg') }})">
+            <div class="carousel-item" style="background-image: url({{ asset('assets/img/picture/polhas_2.jpg') }})">
                 <div class="carousel-container">
                 </div>
             </div>
@@ -92,8 +90,8 @@
     
                 <div class="row">
     
-                <div class="col-lg-5 align-items-stretch video-box" style='background-image: url("{{ asset('assets/img/why-us.jpg') }}");' data-aos="zoom-in" data-aos-delay="100">
-                    <a href="https://www.youtube.com/watch?v=h1gtIxBTID4" target="_blank" class="venobox play-btn mb-4" data-vbtype="video" data-autoplay="true"></a>
+                <div class="col-lg-5 align-items-stretch video-box" style='background-image: url("{{ asset('assets/img/picture/kegiatan.jpg') }}");' data-aos="zoom-in" data-aos-delay="100">
+                    <a href="https://youtu.be/7Z4XGs7Id2M" target="_blank" class="venobox play-btn mb-4" data-vbtype="video" data-autoplay="true"></a>
                 </div>
     
                 <div class="col-lg-7 d-flex flex-column justify-content-center align-items-stretch">

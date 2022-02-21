@@ -96,12 +96,14 @@
                 </thead>
                 <tbody>
                     @foreach ($biaya as $by)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $by->prodi->nama }}</td>
-                            <td>{{ $by->getUangPangkal }}</td>
-                            <td>{{ $by->getSpp }}</td>
-                        </tr>
+                        @if ($by->uang_pangkal != null && $by->spp != null)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $by->prodi->nama }}</td>
+                                <td>{{ $by->getUangPangkal }}</td>
+                                <td>{{ $by->getSpp }}</td>
+                            </tr>
+                        @endif
                     @endforeach
                 </tbody>
             </table>

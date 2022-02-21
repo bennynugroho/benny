@@ -623,15 +623,15 @@ strong.chat_time {
 
 /*Chatbox scrollbar*/
 
-::-webkit-scrollbar {
+.fabs ::-webkit-scrollbar {
     width: 6px;
 }
 
-::-webkit-scrollbar-track {
+.fabs ::-webkit-scrollbar-track {
     border-radius: 0;
 }
 
-::-webkit-scrollbar-thumb {
+.fabs ::-webkit-scrollbar-thumb {
     margin: 2px;
     border-radius: 10px;
     background: rgba(0, 0, 0, 0.2);

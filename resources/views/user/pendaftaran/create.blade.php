@@ -35,11 +35,6 @@
 
 @push('after-script')
     <script src="{{ asset('assets/js/jquery-3.6.0.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/dropify/js/dropify.min.js') }}"></script>
-    
-    <script>
-        $('.dropify').dropify();
-    </script>
 
     <script>
         $(document).ready(function(){
@@ -61,7 +56,7 @@
             checkTabInfo();
 
             // disable select pilihan prodi2
-            checkPilProdi($('#kelas1_id').val());
+            disablePilProdi($('#kelas1_id').val());
         });
 
         function checkTabDiri(){
@@ -125,12 +120,9 @@
         }
 
         function checkTabInfo(){
-            $input_value = [];
-            $('.input-tabinfo').each(function(index){
-                $input_value[index] = $(this).val();
-            });
+            let checked_group = $('div.checkbox-group.required :checkbox:checked').length;
 
-            if(!($input_value.includes(''))){
+            if(checked_group > 0){
                 $('#btn-save-info').attr('disabled', false);
             }else{
                 $('#btn-save-info').attr('disabled', true);
@@ -234,6 +226,12 @@
                 $('#kelas2_id').val('');
                 $('#kelas2_id').attr('disabled', false);
             }else{
+                disablePilProdi(valProdi);
+            }
+        }
+
+        function disablePilProdi(valProdi){
+            if(valProdi == ''){
                 $(`#kelas2_id option[value='${valProdi}']`).hide();
                 $('#kelas2_id').val('');
                 $('#kelas2_id').attr('disabled', true);
@@ -777,17 +775,19 @@
                                             </div>
                                         @enderror
     
-                                        <div class="row mt-3">
-                                            @foreach ($sumber as $sum)
-                                                <div class="col-md-4">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input input-daftar input-tabinfo" type="checkbox" name="sumber_info[]" id="sumberinfo-{{ $sum->id }}" onclick="checkTabInfo()" onchange="saveStorage(this.id, this.value, 'checkbox')" value="{{ $sum->id }}" id="info-{{ $sum->id }}">
-                                                        <label class="form-check-label" for="sumberinfo-{{ $sum->id }}">
-                                                            {{ $sum->info }}
-                                                        </label>
+                                        <div class="checkbox-group required">
+                                            <div class="row mt-3">
+                                                @foreach ($sumber as $sum)
+                                                    <div class="col-md-4">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input input-daftar input-tabinfo" type="checkbox" name="sumber_info[]" id="sumberinfo-{{ $sum->id }}" onclick="checkTabInfo()" onchange="saveStorage(this.id, this.value, 'checkbox')" value="{{ $sum->id }}" id="info-{{ $sum->id }}">
+                                                            <label class="form-check-label" for="sumberinfo-{{ $sum->id }}">
+                                                                {{ $sum->info }}
+                                                            </label>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            @endforeach
+                                                @endforeach
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="row mt-5">
