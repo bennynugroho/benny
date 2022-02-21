@@ -26,7 +26,7 @@ class SumberInfoController extends Controller
                     <td>'. $sum->info .'</td>
                     <td class="text-nowrap">
                         <button class="btn btn-danger btn-sm" onclick="deleteData(`'. route("sumber_info.destroy", ["sumber_info" => $sum->id]) .'`)"><i class="bi bi-trash"></i></button>
-                        <button class="btn btn-success btn-sm" onclick="showEditSumber("'. $sum->id .'", "Ubah Sumber Informasi")"><i class="bi bi-pencil-square"></i></button>
+                        <button class="btn btn-success btn-sm" onclick="showEditSumber('. $sum->id .', `Ubah Sumber Informasi`)"><i class="bi bi-pencil-square"></i></button>
                     </td>
                 </tr>
             ';

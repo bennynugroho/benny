@@ -168,7 +168,7 @@
                     $('#methodModalSeleksi').val('put');
                     $('#daftar_id').val(data.daftar_id);
                     $('#nama_mhs').val(data.daftar.nama);
-                    $('#no-pendaftaran-create').val(data.no_pendaftaran);
+                    $('#no_pendaftaran').val(data.no_pendaftaran);
                     
                     $('#modalEditSeleksi').modal('show');
                 }
