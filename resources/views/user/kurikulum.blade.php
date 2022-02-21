@@ -13,7 +13,7 @@
                         <h5>Visi :</h5>
                         <ul>
                             @foreach ($detail_prodi->getVisi as $visi)
-                                <li><i class="ri-check-double-line"></i> {{ $visi }}</li>
+                                <li><i class="ri-check-double-line"></i> {{ trim($visi, '\r\n') }}</li>
                             @endforeach
                         </ul>
                     </div>
@@ -22,7 +22,7 @@
                         <h5>Misi :</h5>
                         <ul>
                             @foreach ($detail_prodi->getMisi as $misi)
-                                <li><i class="ri-check-double-line"></i> {{ $misi }}</li>
+                                <li><i class="ri-check-double-line"></i> {{ trim($misi, '\r\n') }}</li>
                             @endforeach
                         </ul>
                     </div>
