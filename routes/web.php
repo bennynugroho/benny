@@ -39,7 +39,7 @@ use App\Http\Controllers\PrintController;
 */
 
 // Auth
-Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::get('/kuliah-aja', [AuthController::class, 'login'])->name('login');
 Route::post('/postLogin', [AuthController::class, 'postLogin'])->name('auth.post.login');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
