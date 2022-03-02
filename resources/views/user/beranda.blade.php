@@ -91,7 +91,7 @@
                 <div class="row">
     
                 <div class="col-lg-5 align-items-stretch video-box" style='background-image: url("{{ asset('assets/img/picture/kegiatan.jpg') }}");' data-aos="zoom-in" data-aos-delay="100">
-                    <a href="https://youtu.be/7Z4XGs7Id2M" target="_blank" class="venobox play-btn mb-4" data-vbtype="video" data-autoplay="true"></a>
+                    <a href="https://youtu.be/vypL3hTeoEQ" target="_blank" class="venobox play-btn mb-4" data-vbtype="video" data-autoplay="true"></a>
                 </div>
     
                 <div class="col-lg-7 d-flex flex-column justify-content-center align-items-stretch">
