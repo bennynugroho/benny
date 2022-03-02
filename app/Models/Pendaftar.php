@@ -59,7 +59,7 @@ class Pendaftar extends Model
 
     public function getGetTanggalLahirAttribute()
     {
-        return Carbon::parse($this->tgl_lahir)->locale('id')->isoFormat('DD MMMM YYYY');
+        return Carbon::parse($this->tanggal_lahir)->locale('id')->isoFormat('DD MMMM YYYY');
     }
 
     public function setSumberInfoAttribute($sumber)
