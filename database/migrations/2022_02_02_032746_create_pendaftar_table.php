@@ -55,6 +55,8 @@ class CreatePendaftarTable extends Migration
             $table->string('nama_rekomendasi')->nullable();
             $table->string('tlp_rekomendasi')->nullable();
             $table->timestamps();
+
+            
         });
     }
 

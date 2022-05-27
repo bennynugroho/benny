@@ -53,7 +53,8 @@
                 <div class="card-body p-4">
                     <div class="text-center" >
                         <img src="{{ asset('assets/img/picture/logo_polihasnur.png') }}" width="125" height="125" alt="">
-                        <p class="fs-5 text-muted">Login sebagai admin</p>
+                        <p class="fs-5 text-dark">Sistem Informasi PMB Polihasnur</p>
+                        <p class="fs-5 text-dark">LOGIN</p>
                     </div>
 
                     @if (session('errors'))

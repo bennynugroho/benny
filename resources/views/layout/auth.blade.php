@@ -9,7 +9,7 @@
 
         <title>Login PMB Polihasnur</title>
     </head>
-    <body style="background-image: url('{{ asset('assets/img/picture/kampus.jpg') }}'); background-size: cover;">
+    <body style="background-image: url('{{ asset('assets/img/picture/biru-neon.png') }}'); background-size: cover;">
         
         <div class="container">
             @yield('content')

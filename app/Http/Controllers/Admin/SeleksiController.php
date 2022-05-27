@@ -57,12 +57,21 @@ class SeleksiController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+
     public function store(Request $request)
     {
+        if($request->berkas == 'tidak'){
+            $ket_berkas = $request->text_berkas;
+        }else{
+            $ket_berkas = null;
+        }
+
         Seleksi::create([
             'daftar_id'         => $request->daftar_id,
             'thn_akd_id'        => $request->tahun_id,
             'no_pendaftaran'    => $request->no_pendaftaran,
+            'ket_berkas'        => $ket_berkas
         ]);
 
         return back()->with('success', 'Berhasil menambahkan data');

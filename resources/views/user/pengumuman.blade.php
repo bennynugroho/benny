@@ -5,8 +5,8 @@
     <section id="alur" class="about pb-0 pt-110">
         <div class="container" data-aos="fade-up">
             <div class="section-title pb-3">
-                <h2>Pengumuman</h2>
                 <p>Pengumuman Seleksi</p>
+                <h2></h2>
             </div>
         </div>
     </section><!-- End About Section -->
@@ -17,13 +17,15 @@
             <div class="row justify-content-center no-gutters">
                 @if ($pengumuman->count() >0)
                     <div class="col-md-10">
-                        <p>Berikut adalah nama-nama calon mahasiswa yang lolos seleksi:</p>
+                        <p>Daftar nama calon mahasiswa yang lolos seleksi:</p>
                         <table class="table table-striped table-responsive">
                             <thead>
                                 <th>No.</th>
                                 <th>Nama</th>
                                 <th>Nomor Pendaftaran</th>
                                 <th>Asal Sekolah</th>
+                                <th>Jalur Seleksi</th>
+                                <th>Kelengkapan Berkas</th>
                             </thead>
                             <tbody>
                                 @foreach ($pengumuman as $p)
@@ -32,6 +34,8 @@
                                         <td>{{ $p->daftar->nama }}</td>
                                         <td>{{ $p->no_pendaftaran }}</td>
                                         <td>{{ $p->daftar->slta }}</td>
+                                        <td>{{ $p->daftar->jalur->judul }}</td>
+                                        <td></td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -40,7 +44,7 @@
                 @else
                     <div class="col-md-8">
                         <div class="alert alert-primary d-flex align-items-center justify-content-center" role="alert">
-                            <h5 class="mb-0"><i class="bi bi-info-circle me-3"></i> Pengumuman Seleksi belum Ada</h5>
+                            <h5 class="mb-0"><i class="bi bi-info-circle me-3"></i> Pengumuman Seleksi Belum Ada</h5>
                         </div>
                     </div>
                 @endif

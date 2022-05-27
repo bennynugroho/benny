@@ -7,6 +7,7 @@
             <th>Nomor Pendaftaran</th>
             <th>Jalur Masuk</th>
             <th>Asal Sekolah</th>
+            <th>Kelengkapan Berkas</th>
         </tr>
     </thead>
     <tbody>
@@ -18,6 +19,7 @@
             <td width="20">{{ $d->nim }}</td>
             <td width="20">{{ $d->daftar->jalur->judul }}</td>
             <td width="40">{{ $d->daftar->slta }}</td>
+            <td width="40">{{ $d->ket_berkas == null ? 'Berkas Lengkap' : $d->ket_berkas}}</td>
         </tr>
         @endforeach
     </tbody>

@@ -52,6 +52,7 @@
                                     <th>Nomor Pendaftaran</th>
                                     <th>Jalur Masuk</th>
                                     <th>Asal Sekolah</th>
+                                    <th>Kelengkapan Berkas</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -64,6 +65,7 @@
                                     <td>{{ $sel->no_pendaftaran }}</td>
                                     <td>{{ $sel->daftar->jalur->judul }}</td>
                                     <td>{{ $sel->daftar->slta }}</td>
+                                    <td>{{ $sel->ket_berkas == null ? 'Berkas Lengkap' : $sel->ket_berkas}}</td>
                                     <td class="text-nowrap">
                                         <button class="btn btn-danger btn-sm" onclick="deleteData('{{ route('seleksi.destroy', ['seleksi' => $sel->id]) }}')"><i class="bi bi-x"></i></button>
                                         <button class="btn btn-success btn-sm" onclick="showEditSeleksi('{{ route('seleksi.edit', ['seleksi' => $sel->id]) }}', '{{ route('seleksi.update', ['seleksi' => $sel->id]) }}')"><i class="bi bi-pencil-square"></i></button>
@@ -101,6 +103,19 @@
                             <label for="no-pendaftaran-create" class="form-label">Nomor Pendaftaran</label>
                             <input type="text" class="form-control" id="no-pendaftaran-create" name="no_pendaftaran" required>
                         </div>
+                        
+                        <div class="mb-3">
+                            <label for="berkas" class="form-label">Kelengkapan Berkas</label>
+                                <select class="form-select" id="berkas" name="berkas" onchange="showBerkas(this.value)" required>
+                                    <option selected>Pilih Kelengkapan Berkas</option>
+                                    <option value="ya">Lengkap</option>
+                                    <option value="tidak">Tidak Lengkap</option>
+                                </select>
+                        </div>
+                        <div class="mb-3" id="text-berkas">
+                        
+                        </div>
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -174,5 +189,16 @@
                 }
             });
         }
+
+        function showBerkas(value){
+            if(value == 'tidak'){
+                $('#text-berkas').html(`<label for="text-berkas" class="form-label">Keterangan Berkas</label>
+                        <textarea class="form-control" id="text-berkas" name="text_berkas" rows="3" required></textarea>`);
+            }else{
+               $('#text-berkas').html(``);
+                
+            }
+        }
+        
     </script>
 @endpush

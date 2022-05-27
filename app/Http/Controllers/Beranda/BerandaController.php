@@ -21,7 +21,7 @@ class BerandaController extends Controller
     public function index()
     {
         $data = [
-            'syarat'      => Persyaratan::all(),
+            'syarat'      => Persyaratan::all(), 
             'info_daftar' => InfoPendaftaran::all()->first(),
             'ormawa'      => Http::get(env('PH_URL') . '/ormawa')->object(),
             'testimoni'   => Http::get(env('PH_URL') . '/testimoni')->object(),
